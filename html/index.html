@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>卷积</title>
+<style>
+canvas{
+	background:#FFF;
+}
+</style>
+<meta name="viewport" content="width=device-width,user-scalable=0">
+</head>
+<body>
+
+<div class="app">
+	<div class="ctrl-box">
+		<img src="images/Evangelion.3.0+1.01.Thrice.Upon.a.Time.2021.1080p.AMZN.WEB-DL.DD+.5.1.H.264-RMB-0025.jpg" @load="setImageAndDraw">
+
+
+		<div class="label-box" style="padding:4px 0;">
+			<b>light</b>
+			<input type="range" v-model.number="style.light"
+				   min="-100" max="100" step=".1">
+			<span v-text="style.light"></span>
+		</div>
+
+		<div class="label-box" style="padding:4px 0;">
+			<b>s</b>
+			<input type="range" v-model.number="style.s"
+				   min="0" max="100" step="1">
+			<span v-text="style.s"></span>
+		</div>
+		<div class="label-box" style="padding:4px 0;">
+			<b>l</b>
+			<input type="range" v-model.number="style.l"
+				   min="0" max="100" step="1">
+			<span v-text="style.l"></span>
+		</div>
+		<div class="label-box" style="padding:10px 0;">
+			<b>线条方案1</b>
+			<label>
+				<input type="radio" v-model="style.convoluteName" :value="null">null
+			</label>
+			<label v-for="con,convoluteName in Convolutes">
+				<input type="radio" v-model="style.convoluteName" :value="convoluteName">{{convoluteName}}
+			</label>
+		</div>
+
+		<!-- <div class="label-box" style="padding:4px 0;">
+			<label>
+				<input type="checkbox" v-model="style.convolute1Diff">卷曲diff
+			</label>
+		</div> -->
+
+		<div class="label-box" style="padding:4px 0;">
+			<label>
+				<input type="checkbox" v-model="style.black">铺调子
+			</label>
+		</div>
+
+		<!-- <div class="label-box" style="padding:4px 0;">
+			<b>contrast</b>
+			<input type="range" v-model.number="style.contrast"
+				   min="1" max="100" step=".1">
+			<span v-text="style.contrast"></span>
+		</div> -->
+
+		<!-- <div class="label-box" style="padding:10px 0;">
+			<b>线条方案2</b>
+			<label>
+				<input type="radio" v-model="style.convoluteName2" :value="null">null
+			</label>
+			<label v-for="con,convoluteName in Convolutes">
+				<input type="radio" v-model="style.convoluteName2" :value="convoluteName">{{convoluteName}}
+			</label>
+		</div> -->
+
+		<!-- <div class="label-box" style="padding:4px 0;">
+			<label>
+				<input type="checkbox" v-model="style.invertLight">颠倒黑白
+			</label>
+		</div> -->
+		<!-- <div class="label-box" style="padding:4px 0;">
+			<b>明度观察层</b><input type="range" v-model.number="style.lightGroup"
+				   min="1" max="10" step="1">
+				   <span v-text="style.lightGroup"></span>
+		</div> -->
+
+		<!-- <div class="label-box" style="padding:4px 0;">
+			<b>高亮切断</b>
+			<input type="range" v-model.number="style.lightCut"
+				   min="0" max="128" step="1">
+			<span v-text="style.lightCut"></span>
+		</div> -->
+		<div class="label-box" style="padding:4px 0;">
+			<b>黑场切断</b>
+			<input type="range" v-model.number="style.darkCut"
+				   min="0" max="127" step="1">
+			<span v-text="style.darkCut"></span>
+		</div>
+		<!-- <div class="label-box" style="padding:4px 0;">
+			<label>
+				<input type="checkbox" v-model="style.hue">色轮
+			</label>
+		</div>
+		<div class="label-box" style="padding:4px 0;">
+			<b>色轮压缩</b><input type="range" v-model.number="style.hueGroup"
+				   min="10" max="255" step="1">
+				   <span v-text="style.hueGroup"></span>
+		</div> -->
+	</div>
+</div>
+
+<script src="/vue.2.6.11.min.js"></script>
+<script src="color.js"></script>
+<script src="bezier-easing.js"></script>
+<script src="louvre.js"></script>
+<script src="document.js"></script>
+</body>
+</html>
