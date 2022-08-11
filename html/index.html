@@ -59,6 +59,9 @@ img,canvas{
 			<label>
 				<input type="checkbox" v-model="style.black">铺调子
 			</label>
+			<label>
+				<input type="checkbox" v-model="style.cover">方形封面
+			</label>
 		</div>
 
 		<!-- <div class="label-box" style="padding:4px 0;">
@@ -96,10 +99,22 @@ img,canvas{
 			<span v-text="style.lightCut"></span>
 		</div> -->
 		<div class="label-box" style="padding:4px 0;">
-			<b>黑场切断</b>
+			<b>线迹轻重</b>
 			<input type="range" v-model.number="style.darkCut"
 				   min="80" max="126" step="1">
 			<span v-text="style.darkCut"></span>
+		</div>
+		<div class="label-box" style="padding:4px 0;">
+			<b>调子数量</b>
+			<input type="range" v-model.number="style.blackLimit"
+				   min="20" max="140" step="1">
+			<span v-text="style.blackLimit"></span>
+		</div>
+		<div class="label-box" style="padding:4px 0;">
+			<b>调子轻重</b>
+			<input type="range" v-model.number="style.blackLight"
+				   min="10" max="70" step="1">
+			<span v-text="style.blackLight"></span>
 		</div>
 		<!-- <div class="label-box" style="padding:4px 0;">
 			<label>

@@ -146,6 +146,8 @@ const Convolutes = {
 const style = {
 	zoom:1.3,
 	light:0,
+	blackLimit: 80,
+	blackLight: 40,
 	s:80,
 	l:50,
 	black:true,

@@ -64,23 +64,25 @@ const louvre = (img, config, callback) => {
 	// const _height = 800;
 
 
-	canvas.width = _width;
-	canvas.height = _height;
-
 	let cutLeft = 0;
 	let cutTop = 0;
 
 	let calcWidth = oriWidth;
 	let calcHeight = oriHeight;
 
+	if(config.cover){
 
-	// if(oriScale > 1){
-	// 	cutLeft = (oriScale - 1) * oriHeight / 2;
-	// 	calcWidth = oriHeight;
-	// }else{
-	// 	cutTop =  (1 - oriScale) * oriHeight / 2;
-	// 	calcHeight = oriWidth;
-	// }
+		if(oriScale > 1){
+			cutLeft = (oriScale - 1) * oriHeight / 2;
+			calcWidth = oriHeight;
+			_width = _height;
+		}else{
+			cutTop =  (1 - oriScale) * oriHeight / 2;
+			calcHeight = oriWidth;
+			_height = _width;
+		}
+	}
+
 
 	let setLeft = 0;
 	let setTop = 0;
@@ -90,6 +92,8 @@ const louvre = (img, config, callback) => {
 
 
 
+	canvas.width = _width;
+	canvas.height = _height;
 
 	ctx.drawImage(
 		img,
@@ -129,6 +133,10 @@ const louvre = (img, config, callback) => {
 	}
 	let blackPixel;
 
+	const { 
+		blackLimit = 80,
+		blackLight = 40 
+	} = config;
 	if(config.black){
 		// 处理暗面
 		blackPixel = ctx.createImageData(_width, _height);
@@ -136,7 +144,7 @@ const louvre = (img, config, callback) => {
 		for (let i = 0; i < pixelData.length; i += 4) {
 			let y = pixelData[i];
 
-			y = y > 80 ? 0 : (40 + Math.random() * 40 - 20);
+			y = y > blackLimit ? 0 : (blackLight + Math.random() * 40 - 20);
 
 			// y = Math.max(255-y) * 0.6;
 
