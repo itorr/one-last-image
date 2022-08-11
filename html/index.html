@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>One Last Image - One Last Kiss 风格封面生成器</title>
+<title>One Last Image - One Last Kiss 风格 图片转线稿 生成器</title>
 <style>
 canvas{
 	background:#FFF;
@@ -17,7 +17,7 @@ img,canvas{
 
 <div class="app">
 	<div class="ctrl-box">
-		<img src="images/asuka.jpg" @load="setImageAndDraw">
+		<img src="images/asuka-8.jpg" @load="setImageAndDraw">
 
 
 		<!-- <div class="label-box" style="padding:4px 0;">
@@ -61,6 +61,9 @@ img,canvas{
 			</label>
 			<label>
 				<input type="checkbox" v-model="style.cover">方形封面
+			</label>
+			<label>
+				<input type="checkbox" v-model="style.kuma">Kiss
 			</label>
 		</div>
 

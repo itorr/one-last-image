@@ -291,79 +291,83 @@ const louvre = (img, config, callback) => {
 			pixelData[i+3 ] = 255
 		}
 	}
-	const hStart = 30;
-	const hEnd = -184;
 
-	const be = bezier(0.57, 0.01, 0.43, 0.99);
-	const s = config.s/100;
+	if(config.kuma){
 
-
-	const gradient = ctx.createLinearGradient(0,0, _width,_height);
-
-	// Add three color stops
-	gradient.addColorStop(0, '#fbba30');
-	gradient.addColorStop(0.4, '#fc7235');
-	gradient.addColorStop(.6, '#fc354e');
-	gradient.addColorStop(0.7, '#cf36df');
-	gradient.addColorStop(.8, '#37b5d9');
-	gradient.addColorStop(1, '#3eb6da');
-
-	// Set the fill style and draw a rectangle
-	ctx.fillStyle = gradient;
-	ctx.fillRect(0, 0, _width, _height);
-	let gradientPixel = ctx.getImageData(0, 0, _width, _height);
+		const hStart = 30;
+		const hEnd = -184;
 	
-	for (let i = 0; i < pixelData.length; i += 4) {
-		let y = pixelData[i];
-		let p = Math.floor(i / 4);
-
-		let _h = Math.floor(p/_width);
-		let _w = p % _width;
-
-		/*
+		const be = bezier(0.57, 0.01, 0.43, 0.99);
+		const s = config.s/100;
+	
+	
+		const gradient = ctx.createLinearGradient(0,0, _width,_height);
+	
+		// Add three color stops
+		gradient.addColorStop(0, '#fbba30');
+		gradient.addColorStop(0.4, '#fc7235');
+		gradient.addColorStop(.6, '#fc354e');
+		gradient.addColorStop(0.7, '#cf36df');
+		gradient.addColorStop(.8, '#37b5d9');
+		gradient.addColorStop(1, '#3eb6da');
+	
+		// Set the fill style and draw a rectangle
+		ctx.fillStyle = gradient;
+		ctx.fillRect(0, 0, _width, _height);
+		let gradientPixel = ctx.getImageData(0, 0, _width, _height);
 		
-		// const 
-		// hScale = hScale * hScale;
-
-		let hScale = (_h + _w)/(_width + _height);
-
-		hScale = hScale * hScale;
-		hScale = be(hScale);
-
-		// let h = Math.floor((hStart + (hScale) * (hEnd - hStart)));
-		let [h] = rgb2hsl([
-			gradientPixel.data[i + 0],
-			gradientPixel.data[i + 1],
-			gradientPixel.data[i + 2],
-		]);
-		const l = y/255;
-		const rgb = hsl2rgb([h, s, l * (1 - config.l/100) + (config.l/100)]);
-
-		if(i%5677===0){
-			// console.log(h,y,l,l * (config.l/100) + (1 - config.l/100))
-			// console.log((_h + _w)/(_width + _height),hScale)
+		for (let i = 0; i < pixelData.length; i += 4) {
+			let y = pixelData[i];
+			let p = Math.floor(i / 4);
+	
+			let _h = Math.floor(p/_width);
+			let _w = p % _width;
+	
+			/*
+			
+			// const 
+			// hScale = hScale * hScale;
+	
+			let hScale = (_h + _w)/(_width + _height);
+	
+			hScale = hScale * hScale;
+			hScale = be(hScale);
+	
+			// let h = Math.floor((hStart + (hScale) * (hEnd - hStart)));
+			let [h] = rgb2hsl([
+				gradientPixel.data[i + 0],
+				gradientPixel.data[i + 1],
+				gradientPixel.data[i + 2],
+			]);
+			const l = y/255;
+			const rgb = hsl2rgb([h, s, l * (1 - config.l/100) + (config.l/100)]);
+	
+			if(i%5677===0){
+				// console.log(h,y,l,l * (config.l/100) + (1 - config.l/100))
+				// console.log((_h + _w)/(_width + _height),hScale)
+			}
+	
+			pixelData[i+0 ] = rgb[0];
+			pixelData[i+1 ] = rgb[1];
+			pixelData[i+2 ] = rgb[2];
+			pixelData[i+3 ] = 255;
+			*/
+	
+			pixelData[i+0 ] = gradientPixel.data[i + 0];
+			pixelData[i+1 ] = gradientPixel.data[i + 1];
+			pixelData[i+2 ] = gradientPixel.data[i + 2];
+			
+			y = 255 - y;
+			if(config.black){
+				y = Math.max(
+					y,
+					blackPixel.data[i]
+				);
+			}
+			pixelData[i+3 ] = y
 		}
-
-		pixelData[i+0 ] = rgb[0];
-		pixelData[i+1 ] = rgb[1];
-		pixelData[i+2 ] = rgb[2];
-		pixelData[i+3 ] = 255;
-		*/
-
-		pixelData[i+0 ] = gradientPixel.data[i + 0];
-		pixelData[i+1 ] = gradientPixel.data[i + 1];
-		pixelData[i+2 ] = gradientPixel.data[i + 2];
-		
-		y = 255 - y;
-		if(config.black){
-			y = Math.max(
-				y,
-				blackPixel.data[i]
-			);
-		}
-		pixelData[i+3 ] = y
+	
 	}
-
 
 	if(config.hue){
 		for (let i = 0; i < pixelData.length; i += 4) {
