@@ -52,9 +52,14 @@ const louvre = (img, config, callback) => {
 	// const _width  = Math.floor( width  / config.zoom );
 	// const _height = Math.floor( height / config.zoom );
 
-	const _width  = Math.floor( oriWidth   / config.zoom );
-	const _height = Math.floor( oriHeight  / config.zoom );
+	let _width  = Math.floor( oriWidth   / config.zoom );
+	let _height = Math.floor( oriHeight  / config.zoom );
 
+	const maxWidth = 1200;
+	if(_width > maxWidth){
+		_height = _height * maxWidth / _width
+		_width = maxWidth
+	}
 	// const _width = 800;
 	// const _height = 800;
 

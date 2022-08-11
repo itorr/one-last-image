@@ -7,6 +7,9 @@
 canvas{
 	background:#FFF;
 }
+img,canvas{
+	max-width:800px;
+}
 </style>
 <meta name="viewport" content="width=device-width,user-scalable=0">
 </head>
@@ -17,13 +20,13 @@ canvas{
 		<img src="images/asuka.jpg" @load="setImageAndDraw">
 
 
-		<div class="label-box" style="padding:4px 0;">
+		<!-- <div class="label-box" style="padding:4px 0;">
 			<b>light</b>
 			<input type="range" v-model.number="style.light"
 				   min="-100" max="100" step=".1">
 			<span v-text="style.light"></span>
-		</div>
-
+		</div> -->
+<!-- 
 		<div class="label-box" style="padding:4px 0;">
 			<b>s</b>
 			<input type="range" v-model.number="style.s"
@@ -35,7 +38,7 @@ canvas{
 			<input type="range" v-model.number="style.l"
 				   min="0" max="100" step="1">
 			<span v-text="style.l"></span>
-		</div>
+		</div> -->
 		<div class="label-box" style="padding:10px 0;">
 			<b>线条方案1</b>
 			<label>
@@ -95,7 +98,7 @@ canvas{
 		<div class="label-box" style="padding:4px 0;">
 			<b>黑场切断</b>
 			<input type="range" v-model.number="style.darkCut"
-				   min="0" max="126" step="1">
+				   min="80" max="126" step="1">
 			<span v-text="style.darkCut"></span>
 		</div>
 		<!-- <div class="label-box" style="padding:4px 0;">
