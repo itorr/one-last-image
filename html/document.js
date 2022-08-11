@@ -104,11 +104,12 @@ const Convolutes = {
 	// 	3, 2, -2,
 	// 	0, -1, 0
 	// ],
-	'极精细':   creatConvoluteAverage(3),
+	'极细':   creatConvoluteAverage(3),
 	'精细':  creatConvoluteAverage(5),
 	'一般':  creatConvoluteAverage(7),
-	'粗线条':  creatConvoluteAverage(9),
+	'稍粗':  creatConvoluteAverage(9),
 	'超粗':  creatConvoluteAverage(11),
+	'极粗':  creatConvoluteAverage(13),
 	// '12421': [
 	// 	-3,2,-3,
 	// 	 2,4, 2,
@@ -119,7 +120,7 @@ const Convolutes = {
 	// 	-1 , 9 ,-1 ,
 	// 	-1 ,-1 ,-1 ,
 	// ],
-	'25,-1,24':creatConvoluteCenterHigh(5,24),
+	// '25,-1,24':creatConvoluteCenterHigh(5,24),
 	// '25,-1,25': creatConvoluteCenterHigh(5,25),
 	// '25,-1,26': [
 	// 	-1 , -1 , -1 , -1 , -1 ,
@@ -135,7 +136,7 @@ const Convolutes = {
 	// 	-1 ,  0 ,  0 ,  0 , -1 ,
 	// 	-1 , -1 , -1 , -1 , -1 ,
 	// ],
-	'浮雕': [
+	'雕刻': [
 		1, 1, 1,
 		1, 1, -1,
 		-1, -1, -1
