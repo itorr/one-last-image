@@ -109,3 +109,43 @@ const hax2light=function(hax,l){
 //     hax2burn,
 //     hax2light
 // }
+
+
+
+
+const rgb2yuv = (r, g, b) => {
+	var y, u, v;
+
+	y = r * .299000 + g * .587000 + b * .114000;
+	u = r * -.168736 + g * -.331264 + b * .500000 + 128;
+	v = r * .500000 + g * -.418688 + b * -.081312 + 128;
+
+	y = Math.floor(y);
+	u = Math.floor(u);
+	v = Math.floor(v);
+
+	return [y, u, v];
+};
+
+const yuv2rgb = (y, u, v) => {
+	var r, g, b;
+
+	r = y + 1.4075 * (v - 128);
+	g = y - 0.3455 * (u - 128) - (0.7169 * (v - 128));
+	b = y + 1.7790 * (u - 128);
+
+	r = Math.floor(r);
+	g = Math.floor(g);
+	b = Math.floor(b);
+
+	r = (r < 0) ? 0 : r;
+	r = (r > 255) ? 255 : r;
+
+	g = (g < 0) ? 0 : g;
+	g = (g > 255) ? 255 : g;
+
+	b = (b < 0) ? 0 : b;
+	b = (b > 255) ? 255 : b;
+
+	return [r, g, b];
+};
