@@ -23,46 +23,44 @@
 			<canvas ref="canvas"></canvas>
 		</div>
 		<div class="ctrl-box">
-			<button @click="chooseFile()">选择图片</button>
-			<button @click="save()">下载图片</button>
+			<button class="btn" @click="chooseFile()">选择图片</button>
+			<button class="btn current" @click="save()">下载图片</button>
 			<!-- <button @click="louvre()" class="generator-btn"></button> -->
 			<div class="config-box">
-				<!-- <div class="label-box" style="padding:4px 0;">
+				<!-- <div class="label-box">
 					<b>light</b>
 					<input type="range" v-model.number="style.light"
 						min="-100" max="100" step=".1">
 					<span v-text="style.light"></span>
 				</div> -->
 		<!-- 
-				<div class="label-box" style="padding:4px 0;">
+				<div class="label-box">
 					<b>s</b>
 					<input type="range" v-model.number="style.s"
 						min="0" max="100" step="1">
 					<span v-text="style.s"></span>
 				</div>
-				<div class="label-box" style="padding:4px 0;">
+				<div class="label-box">
 					<b>l</b>
 					<input type="range" v-model.number="style.l"
 						min="0" max="100" step="1">
 					<span v-text="style.l"></span>
 				</div> -->
-				<div class="label-box" style="padding:10px 0;">
-					<b>线条</b>
-					<!-- <label>
-						<input type="radio" v-model="style.convoluteName" :value="null">null
-					</label> -->
-					<label v-for="con,convoluteName in Convolutes">
-						<input type="radio" v-model="style.convoluteName" :value="convoluteName">{{convoluteName}}
-					</label>
-				</div>
+				<ui-tabs v-model="style.convoluteName" :options="convolutes"></ui-tabs>
 	
-				<!-- <div class="label-box" style="padding:4px 0;">
+				<!-- <div class="label-box">
 					<label>
 						<input type="checkbox" v-model="style.convolute1Diff">卷曲diff
 					</label>
 				</div> -->
-	
-				<div class="label-box" style="padding:4px 0;">
+				<div style="padding:4px 0;">
+					<ui-switch v-model="style.black">调子</ui-switch>
+					<ui-switch v-model="style.cover">方形</ui-switch>
+					<ui-switch v-model="style.kuma">Kiss</ui-switch>
+					<ui-switch v-model="style.watermark">水印</ui-switch>
+					<ui-switch v-model="style.hajimei">初回</ui-switch>
+				</div>
+				<!-- <div class="label-box">
 					<label>
 						<input type="checkbox" v-model="style.black">调子
 					</label>
@@ -79,9 +77,9 @@
 					<label>
 						<input type="checkbox" v-model="style.hajimei" :disabled="!style.watermark">初回
 					</label>
-				</div>
+				</div> -->
 	
-				<!-- <div class="label-box" style="padding:4px 0;">
+				<!-- <div class="label-box">
 					<b>contrast</b>
 					<input type="range" v-model.number="style.contrast"
 						min="1" max="100" step=".1">
@@ -98,19 +96,19 @@
 					</label>
 				</div> -->
 	
-				<!-- <div class="label-box" style="padding:4px 0;">
+				<!-- <div class="label-box">
 					<label>
 						<input type="checkbox" v-model="style.invertLight">颠倒黑白
 					</label>
 				</div> -->
 	
-				<!-- <div class="label-box" style="padding:4px 0;">
+				<!-- <div class="label-box">
 					<b>高亮切断</b>
 					<input type="range" v-model.number="style.lightCut"
 						min="0" max="128" step="1">
 					<span v-text="style.lightCut"></span>
 				</div> -->
-				<div class="label-box range-box" style="padding:4px 0;">
+				<div class="label-box range-box" style="padding:10px 0 4px;">
 					<div class="head">
 						<b>线迹轻重</b>
 						<span v-text="style.darkCut"></span>
@@ -118,7 +116,7 @@
 					<input type="range" v-model.number="style.darkCut"
 						min="80" max="126" step="1">
 				</div>
-				<div class="label-box range-box" style="padding:4px 0;">
+				<div class="label-box range-box">
 					<div class="head">
 						<b>调子数量</b>
 						<span v-text="style.blackLimit"></span>
@@ -126,7 +124,7 @@
 					<input type="range" v-model.number="style.blackLimit"
 						min="20" max="140" step="1">
 				</div>
-				<div class="label-box range-box" style="padding:4px 0;">
+				<div class="label-box range-box">
 					<div class="head">
 						<b>调子轻重</b>
 						<span v-text="style.blackLight"></span>
@@ -134,16 +132,29 @@
 					<input type="range" v-model.number="style.blackLight"
 						min="10" max="70" step="1">
 				</div>
-				<!-- <div class="label-box" style="padding:4px 0;">
+				<!-- <div class="label-box">
 					<label>
 						<input type="checkbox" v-model="style.hue">色轮
 					</label>
 				</div>
-				<div class="label-box" style="padding:4px 0;">
+				<div class="label-box">
 					<b>色轮压缩</b><input type="range" v-model.number="style.hueGroup"
 						min="10" max="255" step="1">
 						<span v-text="style.hueGroup"></span>
 				</div> -->
+			</div>
+			<div class="tips-box">
+				<p>
+					建议上传
+					<b>赛璐璐风格</b> 的 
+					<b>动画截图</b>、<b>插画</b>
+					等，效果最佳
+				</p>
+				<p>
+					移动端请使用
+					<b>自带浏览器</b>
+					进行保存
+				</p>
 			</div>
 		</div>
 	</div>
@@ -158,6 +169,8 @@
 <script src="color.js"></script>
 <script src="bezier-easing.js"></script>
 <script src="louvre.js"></script>
+<script src="ui-tabs.vue.js"></script>
+<script src="ui-switch.vue.js"></script>
 <script src="document.js"></script>
 </body>
 </html>

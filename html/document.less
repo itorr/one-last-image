@@ -1,5 +1,6 @@
 :root{
     --background-color: #c3c3c3;
+    --color-font: #111;
 }
 html{
     background:var(--background-color);
@@ -71,19 +72,23 @@ canvas{
             opacity: 1;
         }
     }
+    --cover-width: 480px;
     &[data-cover="true"]{
-        width:480px;
-        height:480px;
+        width:var(--cover-width);
+        height:var(--cover-width);
         margin:0 auto;
         img,canvas{
-            width:480px;
-            height:480px;
+            width:var(--cover-width);
+            height:var(--cover-width);
             object-fit: cover;
         }
     }
+    @media (max-width:480px) {
+        --cover-width: 100vw;
+    }
 }
 .ctrl-box{
-    padding:20px 0;
+    padding:40px 0;
 }
 
 .generator-btn{
@@ -100,13 +105,33 @@ canvas{
     }
 }
 .config-box{
+    padding: 40px 0 0;
     // font-family: monospace;
+}
+.tips-box{
+    padding:10px;
+    // font-weight:bold;
+    // color:#666;
+    p{
+        margin:0;
+        padding:4px 0;
+    }
+}
+.range-box{
+    padding: 4px 0;
+    width:320px;
+    max-width:100%;
+    margin:0 auto;
+    .head{
+        overflow: hidden;
+        b{float: left;}
+        span{float: right;}
+    }
 }
 input[type="range"]{
     display: block;
     margin:0 auto;
-    width:300px;
-    max-width:100%;
+    width:100%;
 }
 /* .app[data-cover="true"] canvas{
 	width:480px;
@@ -121,5 +146,93 @@ footer{
     a{
         display: inline-block;
         padding:0 .5em;
+    }
+}
+
+
+
+[data-text]{
+    &:before{
+        content:attr(data-text);
+    }
+}
+
+.ui-tabs-box{
+    display: inline-block;
+    // margin:10px 0;
+    overflow: hidden;
+    text-align: center;
+
+    a{
+        color: currentColor;
+        float: left;
+        cursor: pointer;
+        line-height: 1;
+        padding:6px;
+        border-radius:3px;
+        transition: color .3s ease, background-color .3s ease;
+        &[data-checked="true"]{
+            background: currentColor;
+            &:before{
+                color: #FFF;
+            }
+        }
+    }
+}
+
+.ui-switch-box {
+    cursor: pointer;
+    margin: .2em;
+
+    display: inline-block;
+    vertical-align: middle;
+
+    text-align: left;
+    .switch {
+        display: inline-block;
+        vertical-align: middle;
+
+        margin-top: -.3em;
+        width: 2.4em;
+        height: 1.4em;
+        border-radius: 9em;
+        background: rgba(0,0,0,.2);
+        background: #999;
+        transition: background-color .3s ease;
+        .slider {
+            display: inline-block;
+            vertical-align: top;
+            width: 1em;
+            height: 1em;
+            border-radius: 9em;
+            background: #FFF;
+            margin: .2em;
+            position: relative;
+            transition: transform .3s ease;
+        }
+    }
+    &[data-checked]{
+        .switch {
+            background: #000;
+            .slider {
+                transform: translateX(1em)
+            }
+        }
+    }
+}
+
+.btn{
+    display: inline-block;
+    border:0;
+    margin:4px;
+    font-size:15px;
+    line-height: 1.4;
+    padding: 10px 16px;
+    border-radius: 3px;
+    background:#666;
+    color:#DDD;
+    &.current{
+        background: #000;
+        color:#EEE;
     }
 }

@@ -169,11 +169,12 @@ const style = {
 };
 
 
-
+const convolutes = Object.keys(Convolutes);
 const data = {
 	img:null,
 	style,
 	runing: false,
+	convolutes,
 };
 
 
