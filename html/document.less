@@ -4,14 +4,44 @@
 html{
     background:var(--background-color);
     text-align: center;
+    font: 14px sans-serif;
 }
 body{
     margin: 0;
-    padding-bottom:100px;
 }
 button{
     cursor: pointer;
 }
+a{
+    color:midnightblue;
+    text-decoration: none;
+}
+header{
+    padding: 40px 0 20px;
+    p{
+        opacity: 0.5;
+    }
+}
+h1{
+    margin:0 auto;
+    
+    // width: 200px;
+    // height: 34px;
+    // font-size:26px;
+    // line-height: 34px;
+
+    width: 400px;
+    height: 68px;
+    font-size:52px;
+
+    line-height: 68px;
+    word-spacing: -1px;
+    color:transparent;
+
+    background: url(one-last-image-sans.svg) no-repeat;
+    background-size: contain;
+}
+
 canvas{
 	background:#FFF;
 }
@@ -19,11 +49,57 @@ canvas{
     max-width:800px;
     margin:0 auto;
 }
-.config-box{
+.output-box{
+    position: relative;
+    cursor: pointer;
+    img,canvas{
+        display: block;
+        max-width:100%;
+        margin:0 auto;
+    }
+    img{
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .1s ease;
+    }
+    canvas{
+
+    }
+    &:active{
+        img{
+            opacity: 1;
+        }
+    }
+    &[data-cover="true"]{
+        width:480px;
+        height:480px;
+        margin:0 auto;
+        img,canvas{
+            width:480px;
+            height:480px;
+            object-fit: cover;
+        }
+    }
+}
+.ctrl-box{
     padding:20px 0;
 }
-img,canvas{
-	max-width:100%;
+
+.generator-btn{
+    &:before{
+        content: '生成';
+    }
+}
+.app[data-runing="true"]{
+    .generator-btn{
+        pointer-events: none;
+        &:before{
+            content: '生成中...';
+        }
+    }
+}
+.config-box{
 }
 /* .app[data-cover="true"] canvas{
 	width:480px;
@@ -31,4 +107,12 @@ img,canvas{
 } */
 h1{
 
+}
+
+footer{
+    padding:40px 0 100px;
+    a{
+        display: inline-block;
+        padding:0 .5em;
+    }
 }

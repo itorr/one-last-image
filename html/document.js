@@ -165,13 +165,15 @@ const style = {
 	lightGroup:1,
 	lightCut: 128,
 	darkCut: 120,
+
 };
 
 
 
 const data = {
 	img:null,
-	style
+	style,
+	runing: false,
 };
 
 
@@ -202,6 +204,7 @@ const app = new Vue({
 			app.T = setTimeout(this.louvre,300)
 		},
 		async louvre(){
+			app.runing = true;
 			app.src = await louvre({
 				img: this.img,
 				canvas: this.$refs['canvas'],
@@ -210,6 +213,7 @@ const app = new Vue({
 					Convolutes,
 				}
 			});
+			app.runing = false;
 		},
 		async setImageAndDraw(e){
 			let img = e.target;
