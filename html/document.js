@@ -232,6 +232,11 @@ const app = new Vue({
 			a.href = this.$refs['canvas'].toDataURL('image/jpeg',.9);
 			a.download = `[lab.magiconch.com][One-Last-Image]-${+Date.now()}.jpg`;
 			a.click();
+		},
+		toDiff(){
+			this.diff = true;
+
+			document.activeElement = null;
 		}
 	},
 	watch:{

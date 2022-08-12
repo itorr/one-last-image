@@ -21,9 +21,9 @@
 		<div class="output-box" 
 			:data-cover="style.cover"
 			:data-diff="diff"
-			@touchstart.prevent="diff = true"
+			@touchstart.prevent="toDiff()"
 			@touchend.prevent="diff = false"
-			@mousedown.prevent="diff = true"
+			@mousedown.prevent="toDiff()"
 			@mouseup.prevent="diff = false">
 			<img src="images/asuka-8.jpg" @load="setImageAndDraw">
 			<canvas ref="canvas"></canvas>
