@@ -175,6 +175,7 @@ const data = {
 	style,
 	runing: false,
 	convolutes,
+	diff: false,
 };
 
 

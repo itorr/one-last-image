@@ -18,7 +18,13 @@
 		<!-- <img src="../one-last-image-logo-color.png"> -->
 	</header>
 	<div>
-		<div class="output-box" :data-cover="style.cover">
+		<div class="output-box" 
+			:data-cover="style.cover"
+			:data-diff="diff"
+			@touchstart.prevent="diff = true"
+			@touchend.prevent="diff = false"
+			@mousedown.prevent="diff = true"
+			@mouseup.prevent="diff = false">
 			<img src="images/asuka-8.jpg" @load="setImageAndDraw">
 			<canvas ref="canvas"></canvas>
 		</div>
