@@ -211,12 +211,12 @@ const app = new Vue({
 				}
 			});
 		},
-		setImageAndDraw(e){
+		async setImageAndDraw(e){
 			let img = e.target;
 
 			console.log(img);
 			this.img = img;
-			this.louvre();
+			await this.louvre();
 		},
 		output(){
 			const a = document.createElement('a');

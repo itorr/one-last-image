@@ -13,11 +13,14 @@
 		<h1>
 			One Last Image
 		</h1>
-		<img src="../one-last-image-logo-color.png">
+		<!-- <img src="../one-last-image-logo-color.png"> -->
 	</header>
 	<div class="ctrl-box">
 		<img src="images/asuka-8.jpg" @load="setImageAndDraw">
-
+		
+		<div class="ctrl-box">
+			<button @click="chooseFile()">上传图片</button>
+		</div>
 		<div class="config-box">
 			<!-- <div class="label-box" style="padding:4px 0;">
 				<b>light</b>
@@ -65,10 +68,10 @@
 					<input type="checkbox" v-model="style.kuma">Kiss
 				</label>
 				<label>
-					<input type="checkbox" v-model="style.watermark">watermark
+					<input type="checkbox" v-model="style.watermark">水印
 				</label>
 				
-				<label>
+				<label v-if="style.watermark">
 					<input type="checkbox" v-model="style.hajimei">初回限定
 				</label>
 			</div>
