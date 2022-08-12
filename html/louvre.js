@@ -20,12 +20,12 @@ let scale = width / height;
 
 let lastConfigString = null;
 
-
+const canvas = document.createElement('canvas');
 const canvasBlack = document.createElement('canvas');
 const canvasBlackMin = document.createElement('canvas');
 const canvasMin = document.createElement('canvas');
 
-const louvre = async ({img, canvas, config, callback}) => {
+const louvre = async ({img, outputCanvas, config, callback}) => {
 	if (!img || !config) return;
 
 	const configString = [
@@ -250,15 +250,6 @@ const louvre = async ({img, canvas, config, callback}) => {
 
 	pixelData = pixel.data;
 
-	if(config.invertLight){
-		for (let i = 0; i < pixelData.length; i += 4) {
-			let r = 255 - pixelData[i]
-			pixelData[i   ] = r
-			pixelData[i+1 ] = r
-			pixelData[i+2 ] = r
-		}
-	}
-
 
 
 	if(config.lightCut || config.darkCut){
@@ -419,6 +410,17 @@ const louvre = async ({img, canvas, config, callback}) => {
 			setWidth, setHeight
 		);
 	}
+
+	const outputCtx = outputCanvas.getContext('2d');
+
+	outputCanvas.width = _width;
+	outputCanvas.height = _height;
+	outputCtx.fillStyle = '#FFF';
+	outputCtx.fillRect(0,0,_width,_height);
+	outputCtx.drawImage(
+		canvas,
+		0,0,_width,_height
+	);
 
 	console.timeEnd('louvre');
 	// return canvas.toDataURL('image/png');

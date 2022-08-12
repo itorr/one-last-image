@@ -207,7 +207,7 @@ const app = new Vue({
 			app.runing = true;
 			app.src = await louvre({
 				img: this.img,
-				canvas: this.$refs['canvas'],
+				outputCanvas: this.$refs['canvas'],
 				config: {
 					...this.style,
 					Convolutes,
