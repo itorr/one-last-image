@@ -2,7 +2,8 @@ Vue.component('ui-switch',{
     template: `<span class="ui-switch-box" 
         :data-checked="value" 
         :data-disabled="disabled"
-        @click="_switch">
+        @touchend.prevent.stop="_switch"
+        @click.prevent.stop="_switch">
         <a class="switch" :style="{color}">
             <i class="slider"></i>
         </a>
