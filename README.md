@@ -2,5 +2,11 @@
 
 # 🧸「One Last Image」One Last Kiss 风格封面生成器
 
-## 临时预览
-https://im.front.dog/one-last-image/html/
+## 预览
+https://lab.magiconch.com/one-last-image/
+
+## GitHub
+https://github.com/itorr/one-last-image
+
+## 使用了
+ITC Avant Garde Gothic Bold [#3](https://github.com/itorr/one-last-image/issues/3)

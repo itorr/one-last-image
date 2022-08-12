@@ -222,15 +222,15 @@ const app = new Vue({
 			this.img = img;
 			await this.louvre();
 		},
-		output(){
-			const a = document.createElement('a');
-			a.href = this.src;
-			a.download = `[lab.magiconch.com][90s-time-machine]-${+Date.now()}.jpg`;
-			a.click();
-		},
 		chooseFile(){
 			chooseFile(readFileAndSetIMGSrc)
 		},
+		save(){
+			const a = document.createElement('a');
+			a.href = this.$refs['canvas'].toDataURL('image/jpeg',.9);
+			a.download = `[lab.magiconch.com][One-Last-Image]-${+Date.now()}.jpg`;
+			a.click();
+		}
 	},
 	watch:{
 		style:{

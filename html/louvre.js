@@ -368,16 +368,6 @@ const louvre = async ({img, canvas, config, callback}) => {
 	
 	}
 
-	if(config.hue){
-		for (let i = 0; i < pixelData.length; i += 4) {
-			let y = pixelData[i   ]
-			y = y % config.hueGroup * (255/config.hueGroup) /255;
-			const [r,g,b] =  hsl2rgb([y,.7,.5])
-			pixelData[i+0 ] = r 
-			pixelData[i+1 ] = g
-			pixelData[i+2 ] = b
-		}
-	}
 
 	// for(let i = 0;i < pixelData.length;i += 4){
 
