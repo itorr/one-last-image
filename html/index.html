@@ -64,10 +64,10 @@
 	
 				<div class="label-box" style="padding:4px 0;">
 					<label>
-						<input type="checkbox" v-model="style.black">铺调子
+						<input type="checkbox" v-model="style.black">调子
 					</label>
 					<label>
-						<input type="checkbox" v-model="style.cover">方形封面
+						<input type="checkbox" v-model="style.cover">方形
 					</label>
 					<label>
 						<input type="checkbox" v-model="style.kuma">Kiss
@@ -77,7 +77,7 @@
 					</label>
 					
 					<label>
-						<input type="checkbox" v-model="style.hajimei" :disabled="!style.watermark">初回限定
+						<input type="checkbox" v-model="style.hajimei" :disabled="!style.watermark">初回
 					</label>
 				</div>
 	
@@ -110,23 +110,29 @@
 						min="0" max="128" step="1">
 					<span v-text="style.lightCut"></span>
 				</div> -->
-				<div class="label-box" style="padding:4px 0;">
-					<b>线迹轻重</b>
+				<div class="label-box range-box" style="padding:4px 0;">
+					<div class="head">
+						<b>线迹轻重</b>
+						<span v-text="style.darkCut"></span>
+					</div>
 					<input type="range" v-model.number="style.darkCut"
 						min="80" max="126" step="1">
-					<span v-text="style.darkCut"></span>
 				</div>
-				<div class="label-box" style="padding:4px 0;">
-					<b>调子数量</b>
+				<div class="label-box range-box" style="padding:4px 0;">
+					<div class="head">
+						<b>调子数量</b>
+						<span v-text="style.blackLimit"></span>
+					</div>
 					<input type="range" v-model.number="style.blackLimit"
 						min="20" max="140" step="1">
-					<span v-text="style.blackLimit"></span>
 				</div>
-				<div class="label-box" style="padding:4px 0;">
-					<b>调子轻重</b>
+				<div class="label-box range-box" style="padding:4px 0;">
+					<div class="head">
+						<b>调子轻重</b>
+						<span v-text="style.blackLight"></span>
+					</div>
 					<input type="range" v-model.number="style.blackLight"
 						min="10" max="70" step="1">
-					<span v-text="style.blackLight"></span>
 				</div>
 				<!-- <div class="label-box" style="padding:4px 0;">
 					<label>
