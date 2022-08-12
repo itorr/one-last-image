@@ -259,22 +259,6 @@ const louvre = async ({img, canvas, config, callback}) => {
 		}
 	}
 
-	if(config.lightGroup!==1){
-		for (let i = 0; i < pixelData.length; i += 4) {
-			let y = pixelData[i];
-
-			const isOdd = Math.floor(y / (255/config.lightGroup)) % 2 === 0; 
-			
-
-			y = y % (255/config.lightGroup) * config.lightGroup;
-
-			if(isOdd) y = 255 - y;
-
-			pixelData[i+0 ] = y
-			pixelData[i+1 ] = y
-			pixelData[i+2 ] = y
-		}
-	}
 
 
 	if(config.lightCut || config.darkCut){
