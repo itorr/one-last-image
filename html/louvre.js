@@ -10,10 +10,7 @@ const randRange = (a, b) => Math.floor(Math.random() * (b - a) + a);
 
 const inputImageEl = document.querySelector('#input');
 
-const canvas = document.createElement('canvas');
-const ctx = canvas.getContext('2d');
 
-document.body.appendChild(canvas)
 
 let width = 640;
 let height = 480;
@@ -28,7 +25,7 @@ const canvasBlack = document.createElement('canvas');
 const canvasBlackMin = document.createElement('canvas');
 const canvasMin = document.createElement('canvas');
 
-const louvre = (img, config, callback) => {
+const louvre = async ({img, canvas, config, callback}) => {
 	if (!img || !config) return;
 
 	const configString = [
@@ -91,9 +88,11 @@ const louvre = (img, config, callback) => {
 	let setHeight = _height;
 
 
-
 	canvas.width = _width;
 	canvas.height = _height;
+
+
+	const ctx = canvas.getContext('2d');
 
 	ctx.drawImage(
 		img,
@@ -213,7 +212,8 @@ const louvre = (img, config, callback) => {
 
 	let pixel1 = config.convoluteName ? convoluteY(
 		pixel,
-		config.Convolutes[config.convoluteName]
+		config.Convolutes[config.convoluteName],
+		ctx
 	) : pixel;
 
 	// if(config.contrast){
@@ -229,7 +229,8 @@ const louvre = (img, config, callback) => {
 	if(config.convolute1Diff){
 		let pixel2 = config.convoluteName2 ? convoluteY(
 			pixel,
-			config.Convolutes[config.convoluteName2]
+			config.Convolutes[config.convoluteName2],
+			ctx
 		) : pixel;
 		
 		console.log(/pixel2/,config.Convolutes[config.convoluteName2],pixel2);
@@ -303,7 +304,6 @@ const louvre = (img, config, callback) => {
 	
 		const gradient = ctx.createLinearGradient(0,0, _width,_height);
 	
-		// Add three color stops
 		gradient.addColorStop(0, '#fbba30');
 		gradient.addColorStop(0.4, '#fc7235');
 		gradient.addColorStop(.6, '#fc354e');
@@ -311,7 +311,6 @@ const louvre = (img, config, callback) => {
 		gradient.addColorStop(.8, '#37b5d9');
 		gradient.addColorStop(1, '#3eb6da');
 	
-		// Set the fill style and draw a rectangle
 		ctx.fillStyle = gradient;
 		ctx.fillRect(0, 0, _width, _height);
 		let gradientPixel = ctx.getImageData(0, 0, _width, _height);
@@ -416,13 +415,61 @@ const louvre = (img, config, callback) => {
 		0,0,_width,_height
 	);
 
+	// one-last-image-logo-color.png
+	if(config.watermark){
+		// const watermarkImageEl = await loadImagePromise('one-last-image-logo2.png');
+
+		const watermarkImageWidth = watermarkImageEl.naturalWidth;
+		const watermarkImageHeight = watermarkImageEl.naturalHeight / 2;
+		let setWidth = _width * 0.3;
+		let setHeight = setWidth / watermarkImageWidth * watermarkImageHeight;
+	
+		if( _width / _height  > 1.1 ){
+			setHeight = _height * 0.15;
+			setWidth = setHeight / watermarkImageHeight * watermarkImageWidth;
+		}
+	
+		let cutTop = 0;
+	
+		if(config.hajimei){
+			cutTop = watermarkImageHeight;
+		}
+	
+		let setLeft = _width - setWidth - setHeight * 0.2;
+		let setTop = _height - setHeight - setHeight * 0.16;
+		ctx.drawImage(
+			watermarkImageEl,
+			0,cutTop,
+			watermarkImageWidth,watermarkImageHeight,
+			setLeft, setTop,
+			setWidth, setHeight
+		);
+	}
+
 	console.timeEnd('louvre');
 	// return canvas.toDataURL('image/png');
+	
 };
 
+let loadImage = (url,onOver)=>{
+	const el = new Image();
+	el.onload = _=>onOver(el);
+	el.src = url;
+};
+let loadImagePromise = async url=>{
+	return new Promise(function(resolve, reject){
+		setTimeout(function(){
+			const el = new Image();
+			el.onload = _=>resolve(el);
+			el.onerror = e=>reject(e);
+			el.src = url;
+		}, 2000);
+	});
+}
 
-
-let convolute = (pixels, weights) => {
+let watermarkImageEl;
+loadImage('one-last-image-logo2.png',el=>watermarkImageEl = el);
+let convolute = (pixels, weights, ctx) => {
 	const side = Math.round(Math.sqrt(weights.length));
 	const halfSide = Math.floor(side / 2);
 
@@ -473,7 +520,7 @@ let convolute = (pixels, weights) => {
 
 
 
- const convoluteY = (pixels, weights) => {
+ const convoluteY = (pixels, weights, ctx) => {
 	const side = Math.round( Math.sqrt( weights.length ) );
 	const halfSide = Math.floor(side / 2);
 

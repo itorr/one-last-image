@@ -152,6 +152,8 @@ const style = {
 	l:50,
 	black:true,
 	kuma:true,
+	hajimei:false,
+	watermark: false,
 	convoluteName: '一般',
 	convolute1Diff: true,
 	convoluteName2: null,
@@ -199,10 +201,14 @@ const app = new Vue({
 			clearTimeout(app.T)
 			app.T = setTimeout(this.louvre,300)
 		},
-		louvre(){
-			app.src = louvre(this.img,{
-				...this.style,
-				Convolutes,
+		async louvre(){
+			app.src = await louvre({
+				img: this.img,
+				canvas: this.$refs['canvas'],
+				config: {
+					...this.style,
+					Convolutes,
+				}
 			});
 		},
 		setImageAndDraw(e){
