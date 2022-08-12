@@ -176,6 +176,8 @@ const data = {
 	runing: false,
 	convolutes,
 	diff: false,
+	output: '',
+	downloadFilename: '[One-Last-Image].jpg'
 };
 
 
@@ -228,10 +230,8 @@ const app = new Vue({
 			chooseFile(readFileAndSetIMGSrc)
 		},
 		save(){
-			const a = document.createElement('a');
-			a.href = this.$refs['canvas'].toDataURL('image/jpeg',.9);
-			a.download = `[lab.magiconch.com][One-Last-Image]-${+Date.now()}.jpg`;
-			a.click();
+			this.output = this.$refs['canvas'].toDataURL('image/jpeg',.9);
+			this.downloadFilename = `[lab.magiconch.com][One-Last-Image]-${+Date.now()}.jpg`;
 		},
 		toDiff(){
 			this.diff = true;
