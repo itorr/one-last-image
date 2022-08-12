@@ -53,12 +53,12 @@
 						<input type="checkbox" v-model="style.convolute1Diff">卷曲diff
 					</label>
 				</div> -->
-				<div style="padding:4px 0;">
+				<div style="padding:14px 0;">
 					<ui-switch v-model="style.black">调子</ui-switch>
-					<ui-switch v-model="style.cover">方形</ui-switch>
+					<!-- <ui-switch v-model="style.cover">方形</ui-switch> -->
 					<ui-switch v-model="style.kuma">Kiss</ui-switch>
 					<ui-switch v-model="style.watermark">水印</ui-switch>
-					<ui-switch v-model="style.hajimei">初回</ui-switch>
+					<ui-switch v-model="style.hajimei":disabled="!style.watermark">初回</ui-switch>
 				</div>
 				<!-- <div class="label-box">
 					<label>

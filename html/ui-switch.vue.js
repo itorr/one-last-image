@@ -1,5 +1,8 @@
 Vue.component('ui-switch',{
-    template: `<span class="ui-switch-box" :data-checked="value" @click="_switch">
+    template: `<span class="ui-switch-box" 
+        :data-checked="value" 
+        :data-disabled="disabled"
+        @click="_switch">
         <a class="switch" :style="{color}">
             <i class="slider"></i>
         </a>
@@ -7,7 +10,8 @@ Vue.component('ui-switch',{
     </span>`,
     props:{
         value: Boolean,
-        color: String
+        color: String,
+        disabled: Boolean,
     },
     methods:{
         _switch(){
