@@ -146,23 +146,23 @@ const Convolutes = {
 const style = {
 	zoom:1,
 	light:0,
-	blackLimit: 80,
-	blackLight: 40,
-	s:80,
-	l:50,
-	black:true,
-	kuma:true,
-	hajimei:false,
-	watermark: false,
+	shadeLimit: 80,
+	shadeLight: 40,
+	// s:80,
+	// l:50,
+	shade: true,
+	kuma: true,
+	hajimei: false,
+	watermark: true,
 	convoluteName: '一般',
 	convolute1Diff: true,
 	convoluteName2: null,
 	Convolutes,
-	contrast: 30,
-	invertLight: false,
-	hue:false,
-	hueGroup:255,
-	lightGroup:1,
+	// contrast: 30,
+	// invertLight: false,
+	// hue:false,
+	// hueGroup: 255,
+	// lightGroup: 1,
 	lightCut: 128,
 	darkCut: 120,
 
@@ -197,54 +197,56 @@ chooseFile.input = document.createElement('input');
 chooseFile.input.type = 'file';
 chooseFile.form.appendChild(chooseFile.input);
 
+louvreInit(_=>{
 
 
-const app = new Vue({
-	el:'.app',
-	data,
-	methods: {
-		_louvre(){
-			clearTimeout(app.T)
-			app.T = setTimeout(this.louvre,300)
+	const app = new Vue({
+		el:'.app',
+		data,
+		methods: {
+			_louvre(){
+				clearTimeout(app.T)
+				app.T = setTimeout(app.louvre,300)
+			},
+			async louvre(){
+				app.runing = true;
+				app.src = await louvre({
+					img: app.img,
+					outputCanvas: app.$refs['canvas'],
+					config: {
+						...app.style,
+						Convolutes,
+					}
+				});
+				app.runing = false;
+			},
+			async setImageAndDraw(e){
+				let img = e.target;
+	
+				console.log(img);
+				app.img = img;
+				await app.louvre();
+			},
+			chooseFile(){
+				chooseFile(readFileAndSetIMGSrc)
+			},
+			save(){
+				app.output = app.$refs['canvas'].toDataURL('image/jpeg',.9);
+				app.downloadFilename = `[lab.magiconch.com][One-Last-Image]-${+Date.now()}.jpg`;
+			},
+			toDiff(){
+				this.diff = true;
+	
+				document.activeElement = null;
+			}
 		},
-		async louvre(){
-			app.runing = true;
-			app.src = await louvre({
-				img: this.img,
-				outputCanvas: this.$refs['canvas'],
-				config: {
-					...this.style,
-					Convolutes,
+		watch:{
+			style:{
+				deep:true,
+				handler(){
+					this._louvre();
 				}
-			});
-			app.runing = false;
-		},
-		async setImageAndDraw(e){
-			let img = e.target;
-
-			console.log(img);
-			this.img = img;
-			await this.louvre();
-		},
-		chooseFile(){
-			chooseFile(readFileAndSetIMGSrc)
-		},
-		save(){
-			this.output = this.$refs['canvas'].toDataURL('image/jpeg',.9);
-			this.downloadFilename = `[lab.magiconch.com][One-Last-Image]-${+Date.now()}.jpg`;
-		},
-		toDiff(){
-			this.diff = true;
-
-			document.activeElement = null;
-		}
-	},
-	watch:{
-		style:{
-			deep:true,
-			handler(){
-				this._louvre();
 			}
 		}
-	}
+	});
 });

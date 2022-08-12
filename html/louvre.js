@@ -21,8 +21,8 @@ let scale = width / height;
 let lastConfigString = null;
 
 const canvas = document.createElement('canvas');
-const canvasBlack = document.createElement('canvas');
-const canvasBlackMin = document.createElement('canvas');
+const canvasShade = document.createElement('canvas');
+const canvasShadeMin = document.createElement('canvas');
 const canvasMin = document.createElement('canvas');
 
 const louvre = async ({img, outputCanvas, config, callback}) => {
@@ -130,60 +130,60 @@ const louvre = async ({img, outputCanvas, config, callback}) => {
 		pixelData[i + 1] = y;
 		pixelData[i + 2] = y;
 	}
-	let blackPixel;
+	let shadePixel;
 
 	const { 
-		blackLimit = 80,
-		blackLight = 40 
+		shadeLimit = 80,
+		shadeLight = 40 
 	} = config;
-	if(config.black){
+	if(config.shade){
 		// 处理暗面
-		blackPixel = ctx.createImageData(_width, _height);
+		shadePixel = ctx.createImageData(_width, _height);
 
 		for (let i = 0; i < pixelData.length; i += 4) {
 			let y = pixelData[i];
 
-			y = y > blackLimit ? 0 : (blackLight + Math.random() * 40 - 20);
+			y = y > shadeLimit ? 0 : (shadeLight + Math.random() * 40 - 20);
 
 			// y = Math.max(255-y) * 0.6;
 
-			blackPixel.data[i    ] = y;
-			blackPixel.data[i + 1] = 128;
-			blackPixel.data[i + 2] = 128;
-			blackPixel.data[i + 3] = Math.floor(Math.random() * 255)//Math.ceil( y + Math.random() * 40 - 20);
+			shadePixel.data[i    ] = y;
+			shadePixel.data[i + 1] = 128;
+			shadePixel.data[i + 2] = 128;
+			shadePixel.data[i + 3] = Math.floor(Math.random() * 255)//Math.ceil( y + Math.random() * 40 - 20);
 		}
 
 		// /*
-		// document.body.appendChild(canvasBlack)
+		// document.body.appendChild(canvasShade)
 
-		const ctxBlack = canvasBlack.getContext('2d');
-		const ctxBlackMin = canvasBlackMin.getContext('2d');
+		const ctxShade = canvasShade.getContext('2d');
+		const ctxShadeMin = canvasShadeMin.getContext('2d');
 		
-		canvasBlack.width = _width;
-		canvasBlack.height = _height;
+		canvasShade.width = _width;
+		canvasShade.height = _height;
 
-		console.log({blackPixel})
+		console.log({shadePixel})
 
-		ctxBlack.putImageData(blackPixel, 0, 0);
+		ctxShade.putImageData(shadePixel, 0, 0);
 
-		// ctxBlack.fillText('123233',50,50);
-		const blackZoom = 4;
-		canvasBlackMin.width = Math.floor(_width/blackZoom);
-		canvasBlackMin.height = Math.floor(_height/blackZoom);
+		// ctxShade.fillText('123233',50,50);
+		const shadeZoom = 4;
+		canvasShadeMin.width = Math.floor(_width/shadeZoom);
+		canvasShadeMin.height = Math.floor(_height/shadeZoom);
 
-		ctxBlackMin.drawImage(
-			canvasBlack,
+		ctxShadeMin.drawImage(
+			canvasShade,
 			0,0,
-			canvasBlackMin.width,canvasBlackMin.height
+			canvasShadeMin.width,canvasShadeMin.height
 		);
 
-		ctxBlack.clearRect(0,0,_width,_height)
-		ctxBlack.drawImage(
-			canvasBlackMin,
+		ctxShade.clearRect(0,0,_width,_height)
+		ctxShade.drawImage(
+			canvasShadeMin,
 			0,0,
 			_width,_height
 		);
-		blackPixel = ctxBlack.getImageData(0,0,_width,_height);
+		shadePixel = ctxShade.getImageData(0,0,_width,_height);
 
 	}
 	
@@ -332,10 +332,10 @@ const louvre = async ({img, outputCanvas, config, callback}) => {
 			pixelData[i+2 ] = gradientPixel.data[i + 2];
 			
 			y = 255 - y;
-			if(config.black){
+			if(config.shade){
 				y = Math.max(
 					y,
-					blackPixel.data[i]
+					shadePixel.data[i]
 				);
 			}
 			pixelData[i+3 ] = y
@@ -444,7 +444,15 @@ let loadImagePromise = async url=>{
 }
 
 let watermarkImageEl;
-loadImage('one-last-image-logo2.png',el=>watermarkImageEl = el);
+
+const louvreInit = onOver=>{
+	loadImage('one-last-image-logo2.png',el=>{
+		watermarkImageEl = el;
+		onOver();
+	});
+}
+
+
 let convolute = (pixels, weights, ctx) => {
 	const side = Math.round(Math.sqrt(weights.length));
 	const halfSide = Math.floor(side / 2);

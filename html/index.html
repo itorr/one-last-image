@@ -30,7 +30,11 @@
 		</div>
 		<div class="ctrl-box">
 			<button class="btn" @click="chooseFile()">选择图片</button>
-			<button class="btn current" @click="save()">下载图片</button>
+			<a class="btn current" 
+				@click="save()" 
+				:href="output"
+				:download="downloadFilename"
+				>下载图片</a>
 			<!-- <button @click="louvre()" class="generator-btn"></button> -->
 			<div class="config-box">
 				<!-- <div class="label-box">
@@ -62,13 +66,13 @@
 				<div style="padding:14px 0;">
 					<!-- <ui-switch v-model="style.cover">方形</ui-switch> -->
 					<ui-switch v-model="style.kuma">Kiss</ui-switch>
-					<ui-switch v-model="style.black" :disabled="!style.kuma">调子</ui-switch>
+					<ui-switch v-model="style.shade" :disabled="!style.kuma">调子</ui-switch>
 					<ui-switch v-model="style.watermark">水印</ui-switch>
 					<ui-switch v-model="style.hajimei" :disabled="!style.watermark">初回</ui-switch>
 				</div>
 				<!-- <div class="label-box">
 					<label>
-						<input type="checkbox" v-model="style.black">调子
+						<input type="checkbox" v-model="style.shade">调子
 					</label>
 					<label>
 						<input type="checkbox" v-model="style.cover">方形
@@ -125,17 +129,17 @@
 				<div class="label-box range-box">
 					<div class="head">
 						<b>调子数量</b>
-						<span v-text="style.blackLimit"></span>
+						<span v-text="style.shadeLimit"></span>
 					</div>
-					<input type="range" v-model.number="style.blackLimit"
+					<input type="range" v-model.number="style.shadeLimit"
 						min="20" max="140" step="1">
 				</div>
 				<div class="label-box range-box">
 					<div class="head">
 						<b>调子轻重</b>
-						<span v-text="style.blackLight"></span>
+						<span v-text="style.shadeLight"></span>
 					</div>
-					<input type="range" v-model.number="style.blackLight"
+					<input type="range" v-model.number="style.shadeLight"
 						min="10" max="70" step="1">
 				</div>
 				<!-- <div class="label-box">
@@ -165,14 +169,13 @@
 		</div>
 	</div>
 	<footer>
-		<base  target="_blank">
-		<a href="https://lab.magiconch.com/magi/">Magi</a>
-		<a href="https://lab.magiconch.com/eva-title/">标题生成器</a>
-		<a href="https://v.magiconch.com/mine-sweeper">扫雷</a>
+		<a href="https://lab.magiconch.com/magi/" target="_blank">Magi</a>
+		<a href="https://lab.magiconch.com/eva-title/" target="_blank">标题生成器</a>
+		<a href="https://v.magiconch.com/mine-sweeper" target="_blank">扫雷</a>
 		<br>
-		<a href="https://github.com/itorr/one-last-image">GitHub</a>
-		<a href="https://lab.magiconch.com">神奇海螺实验室</a>
-		<a href="https://weibo.com/reiove">@卜卜口</a>
+		<a href="https://github.com/itorr/one-last-image" target="_blank">GitHub</a>
+		<a href="https://lab.magiconch.com" target="_blank">神奇海螺实验室</a>
+		<a href="https://weibo.com/reiove" target="_blank">@卜卜口</a>
 	</footer>
 </div>
 
