@@ -10,15 +10,7 @@ const readFileToURL = (file,onOver)=>{
 
 const readFileAndSetIMGSrc = file=>{
 	readFileToURL(file,src=>{
-		// const img = new Image();
-		const img = document.querySelector('img')
-		img.src = src;
-		img.onload = ()=>{
-			app.img = img;
-			louvre(img,app.style, src=>{
-				app.src = src;
-			});
-		}
+		app.src = src;
 	});
 };
 
@@ -39,7 +31,7 @@ document.addEventListener('paste',e=>{
 	if(clipboardData.files.length){
 		for(let i = 0;i<clipboardData.files.length;i++){
 			if(isImageRegex.test(clipboardData.files[i].type)){
-				console.log(clipboardData.files[i])
+				// console.log(clipboardData.files[i])
 				readFileAndSetIMGSrc(clipboardData.files[i]);
 			}
 		}
@@ -170,8 +162,12 @@ const style = {
 
 
 const convolutes = Object.keys(Convolutes);
+
+
+defaultImageURL = 'images/asuka-8.jpg';
 const data = {
-	img:null,
+	src: defaultImageURL,
+	defaultImageURL,
 	style,
 	runing: false,
 	convolutes,
@@ -197,10 +193,11 @@ chooseFile.input = document.createElement('input');
 chooseFile.input.type = 'file';
 chooseFile.form.appendChild(chooseFile.input);
 
+let app;
 louvreInit(_=>{
 
 
-	const app = new Vue({
+	app = new Vue({
 		el:'.app',
 		data,
 		methods: {
@@ -211,7 +208,7 @@ louvreInit(_=>{
 			async louvre(){
 				app.runing = true;
 				app.src = await louvre({
-					img: app.img,
+					img: app.$refs['img'],
 					outputCanvas: app.$refs['canvas'],
 					config: {
 						...app.style,
@@ -221,10 +218,6 @@ louvreInit(_=>{
 				app.runing = false;
 			},
 			async setImageAndDraw(e){
-				let img = e.target;
-	
-				console.log(img);
-				app.img = img;
 				await app.louvre();
 			},
 			chooseFile(){

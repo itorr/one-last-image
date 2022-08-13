@@ -25,12 +25,15 @@
 			@touchend.prevent="diff = false"
 			@mousedown.prevent="toDiff()"
 			@mouseup.prevent="diff = false">
-			<img src="images/asuka-8.jpg" @load="setImageAndDraw">
+			<img :src="src" ref="img" @load="setImageAndDraw">
 			<canvas ref="canvas"></canvas>
 		</div>
 		<div class="ctrl-box">
-			<button class="btn" @click="chooseFile()">选择图片</button>
-			<a class="btn current" 
+			<button class="btn"
+				:class="{current: src === defaultImageURL}"
+				@click="chooseFile()">选择图片</button>
+			<a class="btn" 
+				:class="{current: src !== defaultImageURL}"
 				@click="save()" 
 				:href="output"
 				:download="downloadFilename"
