@@ -207,7 +207,7 @@ louvreInit(_=>{
 			},
 			async louvre(){
 				app.runing = true;
-				app.src = await louvre({
+				await louvre({
 					img: app.$refs['img'],
 					outputCanvas: app.$refs['canvas'],
 					config: {
