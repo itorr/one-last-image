@@ -55,11 +55,17 @@ h1{
 }
 
 canvas{
-	background:#FFF;
+	// background:#FFF;
 }
 .app{
     max-width:800px;
     margin:0 auto;
+    // &[data-runing="true"]{
+    //     background: red;
+    // }
+}
+[v-clock]{
+    visibility: hidden;
 }
 .output-box{
     position: relative;
@@ -78,9 +84,14 @@ canvas{
         transition: opacity .1s ease;
     }
     canvas{
-
+        
     }
     &[data-diff]{
+        img{
+            opacity: 1;
+        }
+    }
+    &[data-runing]{
         img{
             opacity: 1;
         }
@@ -251,8 +262,13 @@ footer{
     border-radius: 3px;
     background:#666;
     color:#DDD;
+    transition: background-color .3s ease,color .3s ease;
     &.current{
         background: #000;
         color:#EEE;
+    }
+    &[disabled]{
+        background:#999;
+        pointer-events: none;
     }
 }

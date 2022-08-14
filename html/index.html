@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<div class="app" :data-runing="runing">
+<div class="app" :data-runing="runing" v-clock >
 	<header>
 		<h1>
 			One Last Image
@@ -21,12 +21,18 @@
 		<div class="output-box" 
 			:data-cover="style.cover"
 			:data-diff="diff"
+			:data-runing="runing"
 			@touchstart.prevent="toDiff()"
 			@touchend.prevent="diff = false"
 			@mousedown.prevent="toDiff()"
 			@mouseup.prevent="diff = false">
-			<img :src="src" ref="img" @load="setImageAndDraw">
-			<canvas ref="canvas"></canvas>
+			<img ref="img" 
+				:src="src" 
+				:style="sizeStyle"
+				@load="setImageAndDraw">
+			<canvas ref="canvas" 
+				style="width: 800px; height: 474px;"
+				:style="sizeStyle"></canvas>
 		</div>
 		<div class="ctrl-box">
 			<button class="btn"
@@ -36,6 +42,7 @@
 				:class="{current: src !== defaultImageURL}"
 				@click="save()" 
 				:href="output"
+				:disabled="runing"
 				:download="downloadFilename"
 				>下载图片</a>
 			<!-- <button @click="louvre()" class="generator-btn"></button> -->

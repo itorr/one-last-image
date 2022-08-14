@@ -280,9 +280,9 @@ const louvre = async ({img, outputCanvas, config, callback}) => {
 		const gradient = ctx.createLinearGradient(0,0, _width,_height);
 	
 		gradient.addColorStop(0, '#fbba30');
-		gradient.addColorStop(0.4, '#fc7235');
-		gradient.addColorStop(.6, '#fc354e');
-		gradient.addColorStop(0.7, '#cf36df');
+		gradient.addColorStop(0.3, '#fc7235');
+		gradient.addColorStop(.5, '#fc354e');
+		gradient.addColorStop(.65, '#cf36df');
 		gradient.addColorStop(.8, '#37b5d9');
 		gradient.addColorStop(1, '#3eb6da');
 	

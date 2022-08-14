@@ -157,14 +157,19 @@ const style = {
 	// lightGroup: 1,
 	lightCut: 128,
 	darkCut: 120,
-
 };
 
 
 const convolutes = Object.keys(Convolutes);
 
 
-defaultImageURL = 'images/asuka-8.jpg';
+const defaultImageURL = 'images/asuka-8.jpg';
+
+
+const maxPreviewWidth = Math.min(800,document.body.offsetWidth);
+let previewWidth = maxPreviewWidth;
+let previewHeight = Math.round(previewWidth * 0.59);
+
 const data = {
 	src: defaultImageURL,
 	defaultImageURL,
@@ -173,11 +178,10 @@ const data = {
 	convolutes,
 	diff: false,
 	output: '',
-	downloadFilename: '[One-Last-Image].jpg'
+	downloadFilename: '[One-Last-Image].jpg',
+	previewWidth,
+	previewHeight
 };
-
-
-
 
 
 const chooseFile = callback=>{
@@ -202,22 +206,33 @@ louvreInit(_=>{
 		data,
 		methods: {
 			_louvre(){
+				app.runing = true;
 				clearTimeout(app.T)
 				app.T = setTimeout(app.louvre,300)
 			},
 			async louvre(){
 				app.runing = true;
-				await louvre({
-					img: app.$refs['img'],
-					outputCanvas: app.$refs['canvas'],
-					config: {
-						...app.style,
-						Convolutes,
-					}
-				});
-				app.runing = false;
+				setTimeout(async _=>{
+					await louvre({
+						img: app.$refs['img'],
+						outputCanvas: app.$refs['canvas'],
+						config: {
+							...app.style,
+							Convolutes,
+						}
+					});
+					app.runing = false;
+				})
 			},
 			async setImageAndDraw(e){
+				const { img } = app.$refs;
+				const { naturalWidth, naturalHeight } = img;
+				
+				const previewWidth = Math.min(maxPreviewWidth, naturalWidth);
+				const previewHeight = Math.floor(previewWidth / naturalWidth * naturalHeight);
+
+				app.previewWidth = previewWidth;
+				app.previewHeight = previewHeight;
 				await app.louvre();
 			},
 			chooseFile(){
@@ -231,6 +246,14 @@ louvreInit(_=>{
 				this.diff = true;
 	
 				document.activeElement = null;
+			}
+		},
+		computed: {
+			sizeStyle(){
+				return {
+					width: `${this.previewWidth}px`,
+					height: `${this.previewHeight}px`,
+				}
 			}
 		},
 		watch:{
