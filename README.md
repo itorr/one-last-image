@@ -1,5 +1,3 @@
-<p align="center"><img width="300" src="html/one-last-image-sans.svg" alt="One Last Image"></p>
-
 ![小明日香真可爱啊啊啊啊啊啊](simple.jpg)
 
 # 🧸「One Last Image」One Last Kiss 风格封面生成器
