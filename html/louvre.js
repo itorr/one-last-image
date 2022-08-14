@@ -111,6 +111,9 @@ const louvre = async ({img, outputCanvas, config, callback}) => {
 
 	let pixelData = pixel.data;
 
+	// 测试图像数据读取正常与否
+	// alert(pixel.data.slice(0,10);
+
 
 	for (let i = 0; i < pixelData.length; i += 4) {
 		// let yuv = rgb2yuv(
