@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<div class="app" :data-runing="runing" v-clock >
+<div class="app" :data-runing="runing">
 	<header>
 		<h1>
 			One Last Image
@@ -20,6 +20,7 @@
 	<div>
 		<div class="output-box" 
 			:data-cover="style.cover"
+			data-runing="true"
 			:data-diff="diff"
 			:data-runing="runing"
 			@touchstart.prevent="toDiff()"
@@ -27,12 +28,24 @@
 			@mousedown.prevent="toDiff()"
 			@mouseup.prevent="diff = false">
 			<img ref="img" 
+				src="images/asuka-8.jpg"
 				:src="src" 
-				:style="sizeStyle"
-				@load="setImageAndDraw">
+				:style="sizeStyle">
 			<canvas ref="canvas" 
 				style="width: 800px; height: 474px;"
 				:style="sizeStyle"></canvas>
+			<script>
+				(_=>{
+					const maxPreviewWidth = Math.min(800,document.body.offsetWidth);
+					let previewWidth = maxPreviewWidth;
+					let previewHeight = Math.floor(previewWidth * 0.59);
+					[
+						...document.querySelectorAll('img,canvas')
+					].forEach(el=>{
+						el.style.cssText = `width:${previewWidth}px;height:${previewHeight}px`;
+					})
+				})();
+			</script>
 		</div>
 		<div class="ctrl-box">
 			<button class="btn"
@@ -144,14 +157,14 @@
 					<input type="range" v-model.number="style.shadeLimit"
 						min="20" max="140" step="1">
 				</div>
-				<div class="label-box range-box">
+				<!-- <div class="label-box range-box">
 					<div class="head">
 						<b>调子轻重</b>
 						<span v-text="style.shadeLight"></span>
 					</div>
 					<input type="range" v-model.number="style.shadeLight"
 						min="10" max="70" step="1">
-				</div>
+				</div> -->
 				<!-- <div class="label-box">
 					<label>
 						<input type="checkbox" v-model="style.hue">色轮
@@ -191,7 +204,7 @@
 
 <script src="https://lab.magiconch.com/vue.2.6.11.min.js"></script>
 <script src="color.js"></script>
-<script src="bezier-easing.js"></script>
+<!-- <script src="bezier-easing.js"></script> -->
 <script src="louvre.js"></script>
 <script src="ui-tabs.vue.js"></script>
 <script src="ui-switch.vue.js"></script>

@@ -174,7 +174,7 @@ const data = {
 	src: defaultImageURL,
 	defaultImageURL,
 	style,
-	runing: false,
+	runing: true,
 	convolutes,
 	diff: false,
 	output: '',
@@ -197,72 +197,75 @@ chooseFile.input = document.createElement('input');
 chooseFile.input.type = 'file';
 chooseFile.form.appendChild(chooseFile.input);
 
-let app;
-louvreInit(_=>{
 
-
-	app = new Vue({
-		el:'.app',
-		data,
-		methods: {
-			_louvre(){
-				app.runing = true;
-				clearTimeout(app.T)
-				app.T = setTimeout(app.louvre,300)
-			},
-			async louvre(){
-				app.runing = true;
-				setTimeout(async _=>{
-					await louvre({
-						img: app.$refs['img'],
-						outputCanvas: app.$refs['canvas'],
-						config: {
-							...app.style,
-							Convolutes,
-						}
-					});
-					app.runing = false;
-				})
-			},
-			async setImageAndDraw(e){
-				const { img } = app.$refs;
-				const { naturalWidth, naturalHeight } = img;
-				
-				const previewWidth = Math.min(maxPreviewWidth, naturalWidth);
-				const previewHeight = Math.floor(previewWidth / naturalWidth * naturalHeight);
-
-				app.previewWidth = previewWidth;
-				app.previewHeight = previewHeight;
-				await app.louvre();
-			},
-			chooseFile(){
-				chooseFile(readFileAndSetIMGSrc)
-			},
-			save(){
-				app.output = app.$refs['canvas'].toDataURL('image/jpeg',.9);
-				app.downloadFilename = `[lab.magiconch.com][One-Last-Image]-${+Date.now()}.jpg`;
-			},
-			toDiff(){
-				this.diff = true;
-	
-				document.activeElement = null;
-			}
+app = new Vue({
+	el:'.app',
+	data,
+	methods: {
+		_louvre(){
+			app.runing = true;
+			clearTimeout(app.T)
+			app.T = setTimeout(app.louvre,300)
 		},
-		computed: {
-			sizeStyle(){
-				return {
-					width: `${this.previewWidth}px`,
-					height: `${this.previewHeight}px`,
-				}
-			}
+		async louvre(){
+			app.runing = true;
+			setTimeout(async _=>{
+				await louvre({
+					img: app.$refs['img'],
+					outputCanvas: app.$refs['canvas'],
+					config: {
+						...app.style,
+						Convolutes,
+					}
+				});
+				app.runing = false;
+			})
 		},
-		watch:{
-			style:{
-				deep:true,
-				handler(){
-					this._louvre();
-				}
+		async setImageAndDraw(){
+			const { img } = app.$refs;
+			const { naturalWidth, naturalHeight } = img;
+			
+			const previewWidth = Math.min(maxPreviewWidth, naturalWidth);
+			const previewHeight = Math.floor(previewWidth / naturalWidth * naturalHeight);
+
+			app.previewWidth = previewWidth;
+			app.previewHeight = previewHeight;
+			await app.louvre();
+		},
+		chooseFile(){
+			chooseFile(readFileAndSetIMGSrc)
+		},
+		save(){
+			app.output = app.$refs['canvas'].toDataURL('image/jpeg',.9);
+			app.downloadFilename = `[lab.magiconch.com][One-Last-Image]-${+Date.now()}.jpg`;
+		},
+		toDiff(){
+			this.diff = true;
+
+			document.activeElement = null;
+		}
+	},
+	computed: {
+		sizeStyle(){
+			return {
+				width: `${this.previewWidth}px`,
+				height: `${this.previewHeight}px`,
 			}
 		}
-	});
+	},
+	watch:{
+		style:{
+			deep:true,
+			handler(){
+				this._louvre();
+			}
+		}
+	}
+});
+louvreInit( _=>{
+	const { img } = app.$refs;
+	img.onload = async _=>{
+		await app.setImageAndDraw();
+	};
+	if(img.complete) img.onload();
 });

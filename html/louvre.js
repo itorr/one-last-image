@@ -162,7 +162,7 @@ const louvre = async ({img, outputCanvas, config, callback}) => {
 		canvasShade.width = _width;
 		canvasShade.height = _height;
 
-		console.log({shadePixel})
+		// console.log({shadePixel})
 
 		ctxShade.putImageData(shadePixel, 0, 0);
 
@@ -233,7 +233,7 @@ const louvre = async ({img, outputCanvas, config, callback}) => {
 			ctx
 		) : pixel;
 		
-		console.log(/pixel2/,config.Convolutes[config.convoluteName2],pixel2);
+		// console.log(/pixel2/,config.Convolutes[config.convoluteName2],pixel2);
 		// pixelData
 		for (let i = 0; i < pixel2.data.length; i +=4) {
 			let r = 128 + pixel2.data[i  ] - pixel1.data[i  ];
@@ -273,8 +273,8 @@ const louvre = async ({img, outputCanvas, config, callback}) => {
 		const hStart = 30;
 		const hEnd = -184;
 	
-		const be = bezier(0.57, 0.01, 0.43, 0.99);
-		const s = config.s/100;
+		// const be = bezier(0.57, 0.01, 0.43, 0.99);
+		// const s = config.s/100;
 	
 	
 		const gradient = ctx.createLinearGradient(0,0, _width,_height);
