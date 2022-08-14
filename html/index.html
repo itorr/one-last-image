@@ -26,7 +26,8 @@
 			@touchstart.prevent="toDiff()"
 			@touchend.prevent="diff = false"
 			@mousedown.prevent="toDiff()"
-			@mouseup.prevent="diff = false">
+			@mouseup.prevent="diff = false"
+			@mouseout.prevent="diff = false">
 			<img ref="img" 
 				src="images/asuka-8.jpg"
 				:src="src" 
