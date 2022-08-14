@@ -21,6 +21,7 @@ let scale = width / height;
 let lastConfigString = null;
 
 const canvas = document.createElement('canvas');
+const ctx = canvas.getContext('2d');
 const canvasShade = document.createElement('canvas');
 const canvasShadeMin = document.createElement('canvas');
 const canvasMin = document.createElement('canvas');
@@ -92,7 +93,6 @@ const louvre = async ({img, outputCanvas, config, callback}) => {
 	canvas.height = _height;
 
 
-	const ctx = canvas.getContext('2d');
 
 	ctx.drawImage(
 		img,
@@ -102,7 +102,8 @@ const louvre = async ({img, outputCanvas, config, callback}) => {
 		setLeft, setTop,
 		setWidth, setHeight
 	);
-
+	// ctx.font = '200px sans-serif'
+	// ctx.fillText('123233',50,200);
 
 	let pixel = ctx.getImageData(0, 0, _width, _height);
 

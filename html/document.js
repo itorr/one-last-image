@@ -156,7 +156,7 @@ const style = {
 	// hueGroup: 255,
 	// lightGroup: 1,
 	lightCut: 128,
-	darkCut: 120,
+	darkCut: 118,
 };
 
 
@@ -264,8 +264,6 @@ app = new Vue({
 });
 louvreInit( _=>{
 	const { img } = app.$refs;
-	img.onload = async _=>{
-		await app.setImageAndDraw();
-	};
+	img.onload = app.setImageAndDraw;
 	if(img.complete) img.onload();
 });
