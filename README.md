@@ -7,6 +7,8 @@ One Last Image 是一个 将 **赛璐璐风格** **动画截图** 或 **插画**
 ## 地址
 https://lab.magiconch.com/one-last-image/
 
+
+## 功能
 在转换时，可以自定义
  - 线条处理方案
  - 开关 One Last Kiss 风格（仅将图片转换为线稿）
