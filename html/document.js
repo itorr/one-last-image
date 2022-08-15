@@ -255,6 +255,28 @@ app = new Vue({
 			app.output = canvas.toDataURL('image/jpeg',.9);
 			app.downloadFilename = `[lab.magiconch.com][One-Last-Image]-${+Date.now()}.jpg`;
 		},
+		saveDiff(){
+			const { img,canvas } = app.$refs;
+			const mixCanvas = document.createElement('canvas');
+			const mixCanvasCtx = mixCanvas.getContext('2d');
+			mixCanvas.width = canvas.width;
+			mixCanvas.height = canvas.height * 2;
+			mixCanvasCtx.drawImage(
+				canvas,
+				0,0,
+				canvas.width,canvas.height
+			);
+			mixCanvasCtx.drawImage(
+				img,
+				0,0,
+				img.naturalWidth,img.naturalHeight,
+				0,canvas.height,
+				canvas.width,canvas.height,
+			);
+			app.output = mixCanvas.toDataURL('image/jpeg',.9);
+			app.downloadFilename = `[lab.magiconch.com][One-Last-Image]-diff-${+Date.now()}.jpg`;
+
+		},
 		toDiff(){
 			this.diff = true;
 
