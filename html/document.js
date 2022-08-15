@@ -202,14 +202,14 @@ app = new Vue({
 	el:'.app',
 	data,
 	methods: {
-		_louvre(){
+		_louvre(ms=300){
 			app.runing = true;
 			clearTimeout(app.T)
-			app.T = setTimeout(app.louvre,300)
+			app.T = setTimeout(app.louvre,ms)
 		},
 		async louvre(){
 			app.runing = true;
-			setTimeout(async _=>{
+			this.$nextTick(async _=>{
 				await louvre({
 					img: app.$refs['img'],
 					outputCanvas: app.$refs['canvas'],
