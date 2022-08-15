@@ -236,7 +236,9 @@ app = new Vue({
 			chooseFile(readFileAndSetIMGSrc)
 		},
 		save(){
-			app.output = app.$refs['canvas'].toDataURL('image/jpeg',.9);
+			const { canvas } = app.$refs;
+			// URL.createObjectURL()
+			app.output = canvas.toDataURL('image/jpeg',.9);
 			app.downloadFilename = `[lab.magiconch.com][One-Last-Image]-${+Date.now()}.jpg`;
 		},
 		toDiff(){
@@ -251,6 +253,9 @@ app = new Vue({
 				width: `${this.previewWidth}px`,
 				height: `${this.previewHeight}px`,
 			}
+		},
+		isDefaultImageURL(){
+			return this.src !== this.defaultImageURL
 		}
 	},
 	watch:{

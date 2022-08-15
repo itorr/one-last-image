@@ -50,8 +50,8 @@ const louvre = async ({img, outputCanvas, config, callback}) => {
 	// const _width  = Math.floor( width  / config.zoom );
 	// const _height = Math.floor( height / config.zoom );
 
-	let _width  = Math.floor( oriWidth   / config.zoom );
-	let _height = Math.floor( oriHeight  / config.zoom );
+	let _width  = Math.round( oriWidth   / config.zoom );
+	let _height = Math.round( oriHeight  / config.zoom );
 
 	const maxWidth = 1200;
 	if(_width > maxWidth){
@@ -72,10 +72,12 @@ const louvre = async ({img, outputCanvas, config, callback}) => {
 
 		if(oriScale > 1){
 			cutLeft = (oriScale - 1) * oriHeight / 2;
+			cutLeft = Math.round(cutLeft);
 			calcWidth = oriHeight;
 			_width = _height;
 		}else{
 			cutTop =  (1 - oriScale) * oriHeight / 2;
+			cutTop = Math.round(cutTop);
 			calcHeight = oriWidth;
 			_height = _width;
 		}

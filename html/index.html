@@ -17,8 +17,8 @@
 		<!-- <p>One Last Kiss 风格 图片转线稿 封面生成器</p> -->
 		<!-- <img src="../one-last-image-logo-color.png"> -->
 	</header>
-	<div>
-		<div class="output-box" 
+	<div class="main-box">
+		<div class="preview-box" 
 			:data-cover="style.cover"
 			data-runing="true"
 			:data-diff="diff"
@@ -50,15 +50,16 @@
 		</div>
 		<div class="ctrl-box">
 			<button class="btn"
-				:class="{current: src === defaultImageURL}"
+				:class="{current: !isDefaultImageURL}"
 				@click="chooseFile()">选择图片</button>
 			<a class="btn" 
-				:class="{current: src !== defaultImageURL}"
+				:class="{current: isDefaultImageURL}"
 				@click="save()" 
 				:href="output"
 				:disabled="runing"
 				:download="downloadFilename"
-				>下载图片</a>
+				v-text="runing?'生成中…':'下载图片'"
+				></a>
 			<!-- <button @click="louvre()" class="generator-btn"></button> -->
 			<div class="config-box">
 				<!-- <div class="label-box">
@@ -80,7 +81,7 @@
 						min="0" max="100" step="1">
 					<span v-text="style.l"></span>
 				</div> -->
-				<ui-tabs v-model="style.convoluteName" :options="convolutes"></ui-tabs>
+				<ui-tabs v-model="style.convoluteName" :options="convolutes" @input="louvre()"></ui-tabs>
 	
 				<!-- <div class="label-box">
 					<label>
@@ -89,10 +90,10 @@
 				</div> -->
 				<div style="padding:14px 0;">
 					<!-- <ui-switch v-model="style.cover">方形</ui-switch> -->
-					<ui-switch v-model="style.kuma">Kiss</ui-switch>
-					<ui-switch v-model="style.shade" :disabled="!style.kuma">调子</ui-switch>
-					<ui-switch v-model="style.watermark">水印</ui-switch>
-					<ui-switch v-model="style.hajimei" :disabled="!style.watermark">初回</ui-switch>
+					<ui-switch v-model="style.kuma" @input="louvre()">Kiss</ui-switch>
+					<ui-switch v-model="style.shade" :disabled="!style.kuma" @input="louvre()">调子</ui-switch>
+					<ui-switch v-model="style.watermark" @input="louvre()">水印</ui-switch>
+					<ui-switch v-model="style.hajimei" :disabled="!style.watermark" @input="louvre()">初回</ui-switch>
 				</div>
 				<!-- <div class="label-box">
 					<label>
@@ -184,11 +185,24 @@
 					<b>动画截图</b>、<b>插画</b>
 					等，效果最佳
 				</p>
-				<p>
+				<!-- <p>
 					移动端请使用
 					<b>自带浏览器</b>
 					进行保存
-				</p>
+				</p> -->
+			</div>
+		</div>
+	</div>
+	<div class="ui-shadow" v-if="output">
+		<div class="output-box">
+			<h2>生成好啦</h2>
+			<img :src="output" :alt="downloadFilename">
+			<!-- <p>
+				<a :href="output">链接形式跳转到图片</a>
+			</p> -->
+			<p>手机端保存失败时可尝试长按图片 <b>“添加到照片”</b></p>
+			<div class="ctrl-box">
+				<button class="btn current" @click="output = ''">关闭窗口</button>
 			</div>
 		</div>
 	</div>

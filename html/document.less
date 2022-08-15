@@ -54,6 +54,10 @@ h1{
     }
 }
 
+h2{
+    margin:0;
+}
+
 canvas{
 	// background:#FFF;
 }
@@ -67,7 +71,12 @@ canvas{
 [v-clock]{
     visibility: hidden;
 }
-.output-box{
+.main-box{
+    .ctrl-box{
+        padding:40px 0;
+    }
+}
+.preview-box{
     position: relative;
     cursor: pointer;
     img,canvas{
@@ -110,9 +119,6 @@ canvas{
     @media (max-width:480px) {
         --cover-width: 100vw;
     }
-}
-.ctrl-box{
-    padding:40px 0;
 }
 
 .generator-btn{
@@ -164,6 +170,36 @@ input[type="range"]{
 } */
 h1{
 
+}
+.ui-shadow{
+    position: fixed;
+    top:0;
+    right:0;
+    left:0;
+    bottom:0;
+    background:rgba(0,0,0,.5);
+    overflow: auto;
+}
+.output-box{
+    background:#FFF;
+    width: 800px;
+    max-width:100%;
+    margin:40px auto;
+    padding:20px;
+    box-sizing: border-box;
+    box-shadow: 0 0 40px rgba(0,10,40,.4);
+    h2{
+        padding-bottom:10px;
+    }
+    img{
+        display: block;
+        width:800px;
+        max-width:100%;
+        box-shadow: 0 0 20px rgba(40,80,200,.2);
+    }
+    .ctrl-box{
+        padding:10px 0;
+    }
 }
 
 footer{
