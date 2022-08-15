@@ -10,14 +10,14 @@
 <body>
 
 <div class="app" :data-runing="runing" :data-loading="loading">
-	<header>
+	<header v-clock>
 		<h1>
 			One Last Image
 		</h1>
 		<!-- <p>One Last Kiss 风格 图片转线稿 封面生成器</p> -->
 		<!-- <img src="../one-last-image-logo-color.png"> -->
 	</header>
-	<div class="main-box">
+	<div class="main-box" v-clock>
 		<div class="preview-box" 
 			:data-cover="style.cover"
 			data-runing="true"
@@ -201,7 +201,7 @@
 			</div>
 		</div>
 	</div>
-	<footer>
+	<footer v-clock>
 		<!-- <a href="https://www.bilibili.com/video/BV1Sg411w7T9" target="_blank">MV</a>
 		<hr> -->
 		<a href="https://lab.magiconch.com/magi/" target="_blank">Magi</a>
