@@ -1,5 +1,7 @@
 :root{
     --background-color: #c3c3c3;
+    --background-color-transparent-half: rgba(195,195,195,.5);
+    --background-color-transparent: rgba(195,195,195,0);
     --color-font: #111;
 }
 html{
@@ -203,7 +205,7 @@ h1{
 }
 
 footer{
-    padding:40px 0 100px;
+    padding:40px 0 80px;
     line-height: 3;
     a{
         display: inline-block;
@@ -306,5 +308,68 @@ footer{
     &[disabled]{
         background:#999;
         pointer-events: none;
+    }
+}
+
+
+
+.lyric-box{
+    --lyric-padding: 100px;
+    height: 48px;
+    overflow: hidden;
+    margin: 20px 0 140px;
+    padding: var(--lyric-padding) 0;
+    position: relative;
+    z-index:0;
+    &:before,
+    &:after{
+        content: '';
+        display: block;
+        height:var(--lyric-padding);
+        position: absolute;
+        left:0;
+        right:0;
+        z-index:1;
+    }
+    &:before{
+        top:0;
+        background-image: linear-gradient(
+            180deg, 
+            var(--background-color), 
+            var(--background-color-transparent-half),
+            var(--background-color-transparent)
+        );
+    }
+    &:after{
+        bottom:0;
+        background-image: linear-gradient(
+            0deg,
+            var(--background-color), 
+            var(--background-color-transparent-half),
+            var(--background-color-transparent)
+        );
+    }
+    .list{
+        transition: transform .3s ease;
+    }
+    .item{
+        box-sizing: border-box;
+        height:48px;
+        line-height: 20px;
+        padding:14px 0;
+        &[data-have-cn="true"]{
+            padding:4px 0;
+        }
+        .cn{
+            opacity: 0.4;
+            font-size:12px;
+        }
+
+        transition: opacity .3s ease;
+        opacity: 0.3;
+
+        &[data-current="true"]{
+            opacity: 1;
+        }
     }
 }

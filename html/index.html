@@ -215,10 +215,27 @@
 		<a href="https://lab.magiconch.com" target="_blank">神奇海螺实验室</a>
 		<a href="https://weibo.com/reiove" target="_blank">@卜卜口</a>
 	</footer>
+
+	<div class="lyric-box">
+		<div class="list" :style="{
+			transform: `translateY(-${lyricIndex * 48}px)`
+		}" v-if="lyrics">
+			<div class="item" 
+			v-for="lyric,index in lyrics"
+			:data-current="index === lyricIndex"
+			:data-s="lyric[0]"
+			:key="lyric[0]"
+			:data-have-cn="!!lyric[2]">
+			<div class="text" v-text="lyric[1]"></div>
+			<div class="cn" v-if="lyric[2]" v-text="lyric[2]"></div>
+		</div>
+		</div>
+	</div>
 </div>
 
 <script src="https://lab.magiconch.com/vue.2.6.11.min.js"></script>
 <script src="color.js"></script>
+<script src="lyric.js"></script>
 <!-- <script src="bezier-easing.js"></script> -->
 <script src="louvre.js"></script>
 <script src="ui-tabs.vue.js"></script>

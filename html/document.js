@@ -180,7 +180,9 @@ const data = {
 	output: '',
 	downloadFilename: '[One-Last-Image].jpg',
 	previewWidth,
-	previewHeight
+	previewHeight,
+	lyrics: null,
+	lyricIndex: 0 
 };
 
 
@@ -272,3 +274,46 @@ louvreInit( _=>{
 	img.onload = app.setImageAndDraw;
 	if(img.complete) img.onload();
 });
+
+
+
+
+
+setTimeout(_=>{
+
+	fetch('one-last-kiss.lrc').then(r=>r.text()).then(r=>{
+		const lyrics = lyricParse(r);
+		app.lyrics = lyrics;
+		const lastLyric = lyrics[lyrics.length-1];
+		const duration = lastLyric[0];
+		
+	
+		const getCurrentTime = _=>{
+			const now = +new Date()/1000;
+			const currentTime = now % duration;
+	
+			return currentTime;
+		};
+		const getCurrentIndex = _=>{
+			const currentTime = getCurrentTime();
+	
+	
+			for(let i = lyrics.length - 1;i >= 0 ;i--){
+				let lyric = lyrics[i]
+				if(lyric[0] < currentTime){
+					return i;
+				}
+			}
+			return 0;
+		};
+		const getCurrentLyric = _=>{
+			return lyrics[getCurrentIndex()]
+		}
+		setInterval(_=>{
+			const index = getCurrentIndex();
+			// const lyric = getCurrentLyric();
+			app.lyricIndex = index;
+	
+		},500);
+	})
+},2000);
