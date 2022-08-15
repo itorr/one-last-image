@@ -187,18 +187,20 @@ const data = {
 };
 
 
+const chooseFileForm = document.createElement('form');
+const chooseFileInput = document.createElement('input');
+chooseFileInput.type = 'file';
+chooseFileInput.accept = 'image/*';
+chooseFileForm.appendChild(chooseFileInput);
+
 const chooseFile = callback=>{
-	chooseFile.form.reset();
-	chooseFile.input.onchange = function(){
+	chooseFileForm.reset();
+	chooseFileInput.onchange = function(){
 		if(!this.files||!this.files[0])return;
 		callback(this.files[0]);
 	};
-	chooseFile.input.click();
+	chooseFileInput.click();
 };
-chooseFile.form = document.createElement('form');
-chooseFile.input = document.createElement('input');
-chooseFile.input.type = 'file';
-chooseFile.form.appendChild(chooseFile.input);
 
 
 const init= _=>{
