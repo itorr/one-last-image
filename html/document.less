@@ -224,6 +224,9 @@ input[type="range"]{
 h1{
 
 }
+html[data-no-scroll="true"]{
+    overflow: hidden;
+}
 .ui-shadow{
     position: fixed;
     top:0;
@@ -233,6 +236,8 @@ h1{
     z-index:1;
     background:rgba(0,0,0,.5);
     overflow: auto;
+    overflow-y: scroll;
+    overscroll-behavior: contain;
 }
 .output-box{
     background:#FFF;
