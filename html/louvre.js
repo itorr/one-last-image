@@ -25,6 +25,7 @@ const ctx = canvas.getContext('2d');
 const canvasShade = document.createElement('canvas');
 const canvasShadeMin = document.createElement('canvas');
 const canvasMin = document.createElement('canvas');
+const pencilTextureCanvas = document.createElement('canvas');
 
 const louvre = async ({img, outputCanvas, config, callback}) => {
 	if (!img || !config) return;
@@ -142,14 +143,31 @@ const louvre = async ({img, outputCanvas, config, callback}) => {
 		shadeLimit = 80,
 		shadeLight = 40 
 	} = config;
+	let pencilTexturePixel;
 	if(config.shade){
+
+		// 载入纹理
+		pencilTextureCanvas.width = _width;
+		pencilTextureCanvas.height = _height;
+		const pencilTextureCtx = pencilTextureCanvas.getContext('2d');
+		const pencilSetWidthHeight = Math.max(_width,_height);
+		pencilTextureCtx.drawImage(
+			pencilTextureEl,
+			0,0,
+			1200,1200,
+			0,0,
+			pencilSetWidthHeight,pencilSetWidthHeight
+		);
+		pencilTexturePixel = pencilTextureCtx.getImageData(0,0,_width,_height);
+
+
 		// 处理暗面
 		shadePixel = ctx.createImageData(_width, _height);
 
 		for (let i = 0; i < pixelData.length; i += 4) {
 			let y = pixelData[i];
 
-			y = y > shadeLimit ? 0 : (shadeLight + Math.random() * 40 - 20);
+			y = y > shadeLimit ? 0 : 255; //((255 - pencilTexturePixel.data[i]) + Math.random() * 40 - 20);
 
 			// y = Math.max(255-y) * 0.6;
 
@@ -190,6 +208,16 @@ const louvre = async ({img, outputCanvas, config, callback}) => {
 			_width,_height
 		);
 		shadePixel = ctxShade.getImageData(0,0,_width,_height);
+
+		for (let i = 0; i < shadePixel.data.length; i += 4) {
+			let y = shadePixel.data[i];
+
+			y = Math.round((255-pencilTexturePixel.data[i]) / 255 * y / 255 * shadeLight); //((255 - pencilTexturePixel.data[i]) + Math.random() * 40 - 20);
+
+			// y = Math.max(255-y) * 0.6;
+
+			shadePixel.data[i    ] = y;
+		}
 
 	}
 	
@@ -286,9 +314,9 @@ const louvre = async ({img, outputCanvas, config, callback}) => {
 		const gradient = ctx.createLinearGradient(0,0, _width,_height);
 	
 		gradient.addColorStop(0, '#fbba30');
-		gradient.addColorStop(0.3, '#fc7235');
-		gradient.addColorStop(.5, '#fc354e');
-		gradient.addColorStop(.65, '#cf36df');
+		gradient.addColorStop(0.4, '#fc7235');
+		gradient.addColorStop(.6, '#fc354e');
+		gradient.addColorStop(.7, '#cf36df');
 		gradient.addColorStop(.8, '#37b5d9');
 		gradient.addColorStop(1, '#3eb6da');
 	
@@ -450,13 +478,16 @@ let loadImagePromise = async url=>{
 }
 
 let watermarkImageEl;
-
+let pencilTextureEl;
 const louvreInit = onOver=>{
-	loadImage('one-last-image-logo2.png',el=>{
-		watermarkImageEl = el;
-		onOver();
+	loadImage('pencil-texture.jpg',el=>{
+		pencilTextureEl = el;
+		loadImage('one-last-image-logo2.png',el=>{
+			watermarkImageEl = el;
+			onOver();
+		});
 	});
-}
+};
 
 
 let convolute = (pixels, weights, ctx) => {

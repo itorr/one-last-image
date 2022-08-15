@@ -139,7 +139,7 @@ const style = {
 	zoom:1,
 	light:0,
 	shadeLimit: 108,
-	shadeLight: 40,
+	shadeLight: 140,
 	// s:80,
 	// l:50,
 	shade: true,
