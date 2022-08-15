@@ -2,7 +2,7 @@
 
 # 🧸「One Last Image」卢浮宫生成器
 
-One Last Image 卢浮宫生成器 是一个 将 **赛璐璐风格** **动画截图** 或 **插画**，转换成 One Last Kiss 封面风格的在线生成器
+One Last Image 卢浮宫生成器 是一个 将 **赛璐珞风格** **动画截图** 或 **插画**，转换成 One Last Kiss 封面风格的在线生成器
 
 ## 地址
 https://lab.magiconch.com/one-last-image/
