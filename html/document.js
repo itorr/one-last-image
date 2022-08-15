@@ -168,7 +168,7 @@ const defaultImageURL = 'images/asuka-8.jpg';
 
 const maxPreviewWidth = Math.min(800,document.body.offsetWidth);
 let previewWidth = maxPreviewWidth;
-let previewHeight = Math.round(previewWidth * 0.59);
+let previewHeight = Math.round(previewWidth * 0.593);
 
 const data = {
 	src: defaultImageURL,
@@ -182,6 +182,7 @@ const data = {
 	previewWidth,
 	previewHeight,
 	lyrics: null,
+	loading: true,
 	lyricIndex: 0 
 };
 
@@ -200,10 +201,21 @@ chooseFile.input.type = 'file';
 chooseFile.form.appendChild(chooseFile.input);
 
 
+const init= _=>{
+	app.loading = false;
+	louvreInit( _=>{
+		const { img } = app.$refs;
+		img.onload = app.setImageAndDraw;
+		if(img.complete) img.onload();
+	});
+}
+
+
 app = new Vue({
 	el:'.app',
 	data,
 	methods: {
+		init,
 		_louvre(ms=300){
 			app.runing = true;
 			clearTimeout(app.T)
@@ -269,12 +281,6 @@ app = new Vue({
 		}
 	}
 });
-louvreInit( _=>{
-	const { img } = app.$refs;
-	img.onload = app.setImageAndDraw;
-	if(img.complete) img.onload();
-});
-
 
 
 

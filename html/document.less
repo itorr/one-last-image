@@ -19,10 +19,61 @@ a{
     color: #666;
     text-decoration: none;
 }
+hr{
+    border:0;
+    border-top:1px solid rgba(0,0,0,.08);
+    margin:10px auto;
+    max-width: 100px;
+    display: block;
+}
 header{
     padding: 40px 0 30px;
     p{
         opacity: 0.5;
+    }
+}
+.loading-box{
+    position: fixed;
+    inset: 0;
+    z-index:1;
+    background:#FFF;
+    h2{
+        line-height: 100px;
+        width: 100%;
+    }
+    animation: loadingBoxopacityIn 4s ease;
+    svg{
+        width: 320px;
+        height: 40px;
+        margin:auto;
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        animation: opacityIn 3s ease 1s;
+    }
+}
+// .app[data-loading="true"]{
+//     .loading-box{
+//         display: block;
+//     }
+// }
+@keyframes loadingBoxopacityIn {
+    0%,
+    90%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+@keyframes opacityIn {
+    0%,
+    80%,    
+    100% {
+        opacity: 0;
+    }
+    40%,60%{
+        opacity: 1;
     }
 }
 h1{
