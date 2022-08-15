@@ -8,6 +8,13 @@ html{
     background:var(--background-color);
     text-align: center;
     font: 14px sans-serif;
+    &[data-loading="true"]{
+        overflow: hidden;
+        background:#FFF;
+    }
+    &[data-output="true"]{
+        overflow: hidden;
+    }
 }
 body{
     margin: 0;
@@ -223,9 +230,6 @@ input[type="range"]{
 } */
 h1{
 
-}
-html[data-no-scroll="true"]{
-    overflow: hidden;
 }
 .ui-shadow{
     position: fixed;

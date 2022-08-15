@@ -259,12 +259,6 @@ app = new Vue({
 			this.diff = true;
 
 			document.activeElement = null;
-		},
-		calcOverflow(){
-			const { loading,output } = this;
-			const hidden = !!(loading || output);
-			const el = document.documentElement;
-			el.setAttribute('data-no-scroll',hidden);
 		}
 	},
 	computed: {
@@ -285,13 +279,14 @@ app = new Vue({
 				this._louvre();
 			}
 		},
-		loading:'calcOverflow',
-		output:'calcOverflow',
+		loading(v){
+			document.documentElement.setAttribute('data-loading',v);
+		},
+		output(v){
+			document.documentElement.setAttribute('data-output',!!v);
+		},
 	}
 });
-
-
-app.calcOverflow();
 
 setTimeout(_=>{
 
