@@ -96,7 +96,7 @@ const Convolutes = {
 	// 	3, 2, -2,
 	// 	0, -1, 0
 	// ],
-	'极细':   creatConvoluteAverage(3),
+	// '极细':   creatConvoluteAverage(3),
 	'精细':  creatConvoluteAverage(5),
 	'一般':  creatConvoluteAverage(7),
 	'稍粗':  creatConvoluteAverage(9),
