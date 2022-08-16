@@ -243,6 +243,15 @@ const louvre = async ({img, outputCanvas, config, callback}) => {
 
 
 
+	pixel = convoluteY(
+		pixel,
+		[
+			1/9, 1/9, 1/9,
+			1/9, 1/9, 1/9,
+			1/9, 1/9, 1/9
+		],
+		ctx
+	);
 
 	let pixel1 = config.convoluteName ? convoluteY(
 		pixel,
