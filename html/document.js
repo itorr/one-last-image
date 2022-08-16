@@ -157,6 +157,7 @@ const style = {
 	// lightGroup: 1,
 	lightCut: 128,
 	darkCut: 118,
+	denoise: true,
 };
 
 

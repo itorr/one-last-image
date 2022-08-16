@@ -77,8 +77,9 @@
 				</div> -->
 				<div style="padding:14px 0;">
 					<!-- <ui-switch v-model="style.cover">方形</ui-switch> -->
+					<ui-switch v-model="style.denoise" @input="_louvre(50)">降噪</ui-switch>
 					<ui-switch v-model="style.kuma" @input="_louvre(50)">Kiss</ui-switch>
-					<ui-switch v-model="style.shade" :disabled="!style.kuma" @input="_louvre(50)">调子</ui-switch>
+					<!-- <ui-switch v-model="style.shade" :disabled="!style.kuma" @input="_louvre(50)">调子</ui-switch> -->
 					<ui-switch v-model="style.watermark" @input="_louvre(50)">水印</ui-switch>
 					<ui-switch v-model="style.hajimei" :disabled="!style.watermark" @input="_louvre(50)">初回</ui-switch>
 				</div>
