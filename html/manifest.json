@@ -1,0 +1,15 @@
+{
+    "name": "One Last Image",
+    "short_name": "One Last Image",
+    "description": "卢浮宫生成器 - One Last Kiss 封面风格生成器",
+    "background_color": "#c3c3c3",
+    "display": "browser",
+    "icons": [
+        {
+        "src": "icon.jpg",
+        "sizes": "602x602",
+        "type": "image/jpeg"
+        }
+    ],
+    "start_url": "/pwa-examples/a2hs/index.html"
+}
