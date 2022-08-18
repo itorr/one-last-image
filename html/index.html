@@ -2,14 +2,14 @@
 <html lang="zh-CN" data-loading="true">
 <head>
 <meta charset="UTF-8">
-<title>One Last Image - 卢浮宫生成器 - One Last Kiss 风格 图片转线稿 封面生成器 - 神奇海螺实验室</title>
+<title>One Last Image - 卢浮宫生成器 - One Last Kiss 风格 封面生成 图片转线稿 - 神奇海螺实验室</title>
 <link rel="stylesheet" href="document.css">
 <meta name="viewport" content="width=device-width,user-scalable=0">
-<meta name="description" content="One Last Kiss 卢浮宫生成器 风格 图片转线稿 封面生成器 宇多田光 神奇海螺实验室">
+<meta name="description" content="One Last Kiss 卢浮宫生成器 风格 图片转线稿 封面生成 宇多田光 神奇海螺实验室">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="apple-touch-icon" href="icon.jpg">
-<link rel="manifest" href="/manifest.json" crossorigin="use-credentials">
+<link rel="manifest" href="manifest.json" crossorigin="use-credentials">
 </head>
 <body>
 
@@ -213,6 +213,20 @@
 			<p>手机端保存失败时可尝试长按图片 <b>“添加到照片”</b></p>
 			<div class="ctrl-box">
 				<button class="btn current" @click="output = ''">关闭窗口</button>
+			</div>
+			<div>
+				<a @click="save()">不对比</a>、
+				<a @click="saveDiff()">上下对比图</a>、
+				<a @click="saveDiff2()">斜切对比图</a>
+				<br>
+				<div class="label-box range-box">
+					<div class="head">
+						<b>斜切位置</b>
+						<span v-text="bevelPosition"></span>
+					</div>
+					<input type="range" v-model.number="bevelPosition"
+						min="0" max="72" step="1" @input="_saveDiff2(50)">
+				</div>
 			</div>
 		</div>
 	</div>

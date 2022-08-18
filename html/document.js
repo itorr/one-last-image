@@ -184,7 +184,9 @@ const data = {
 	previewHeight,
 	lyrics: null,
 	loading: true,
-	lyricIndex: 0 
+	lyricIndex: 0,
+
+	bevelPosition:20,
 };
 
 
@@ -279,6 +281,46 @@ app = new Vue({
 			app.output = mixCanvas.toDataURL('image/jpeg',.9);
 			app.downloadFilename = `[lab.magiconch.com][One-Last-Image]-diff-${+Date.now()}.jpg`;
 
+		},
+		saveDiff2(){
+			const { img,canvas } = app.$refs;
+			const mixCanvas = document.createElement('canvas');
+			const mixCanvasCtx = mixCanvas.getContext('2d');
+			mixCanvas.width = canvas.width;
+			mixCanvas.height = canvas.height;
+			mixCanvasCtx.drawImage(
+				canvas,
+				0,0,
+				canvas.width,canvas.height
+			);
+			
+			const { bevelPosition } = app;
+			
+			const topXScale = bevelPosition/100 + 0.24;
+			const bottomXScale = bevelPosition/100 + 0.04;
+
+			const topX = Math.floor(canvas.width * topXScale);
+			const bottomX = Math.floor(canvas.width * bottomXScale);
+			
+			mixCanvasCtx.beginPath();
+			mixCanvasCtx.moveTo(0,0);
+			mixCanvasCtx.lineTo(topX,0);
+			mixCanvasCtx.lineTo(bottomX,canvas.height);
+			mixCanvasCtx.lineTo(0,canvas.height);
+			mixCanvasCtx.closePath();
+
+			const pattern = mixCanvasCtx.createPattern(img, 'no-repeat');
+			mixCanvasCtx.fillStyle = pattern;
+    		mixCanvasCtx.fill(); 
+			app.output = mixCanvas.toDataURL('image/jpeg',.9);
+			app.downloadFilename = `[lab.magiconch.com][One-Last-Image]-diff2-${+Date.now()}.jpg`;
+
+		},
+		_saveDiff2(ms = 100){
+			const { saveDiff2 } = app;
+
+			clearTimeout(saveDiff2.timer);
+			saveDiff2.timer = setTimeout(saveDiff2,ms);
 		},
 		toDiff(){
 			this.diff = true;
