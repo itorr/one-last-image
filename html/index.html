@@ -211,6 +211,7 @@
 				<a :href="output">链接形式跳转到图片</a>
 			</p> -->
 			<p>手机端保存失败时可尝试长按图片 <b>“添加到照片”</b></p>
+			<p>如果能在发布生成图时，标注当前项目信息会很开心🤒</p>
 			<div class="ctrl-box">
 				<button class="btn current" @click="output = ''">关闭窗口</button>
 			</div>
@@ -252,15 +253,15 @@
 			:data-s="lyric[0]"
 			:key="lyric[0]"
 			:data-have-cn="!!lyric[2]">
-			<div class="text">
-				<a 
-				:href="`https://www.bilibili.com/video/BV1Sg411w7T9?t=${Math.floor((+lyric[0]+7)*10)/10}`" 
-				v-text="lyric[1]"
-				target="_mv"
-				></a>
+				<div class="text">
+					<a 
+					:href="`https://www.bilibili.com/video/BV1Sg411w7T9?t=${Math.floor((+lyric[0]+7)*10)/10}`" 
+					v-text="lyric[1]"
+					target="_mv"
+					></a>
+				</div>
+				<div class="cn" v-if="lyric[2]" v-text="lyric[2]"></div>
 			</div>
-			<div class="cn" v-if="lyric[2]" v-text="lyric[2]"></div>
-		</div>
 		</div>
 	</div>
 </div>
