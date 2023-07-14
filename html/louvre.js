@@ -253,10 +253,11 @@ const louvre = async ({img, outputCanvas, config, callback}) => {
 			ctx
 		);
 	}
-
-	let pixel1 = config.convoluteName ? convoluteY(
+	
+	const convoluteMatrix = config.Convolutes[config.convoluteName];
+	let pixel1 = convoluteMatrix ? convoluteY(
 		pixel,
-		config.Convolutes[config.convoluteName],
+		convoluteMatrix,
 		ctx
 	) : pixel;
 
@@ -270,7 +271,7 @@ const louvre = async ({img, outputCanvas, config, callback}) => {
 	// 	}
 	// }
 
-	if(config.convolute1Diff){
+	if(convoluteMatrix && config.convolute1Diff){
 		let pixel2 = config.convoluteName2 ? convoluteY(
 			pixel,
 			config.Convolutes[config.convoluteName2],
@@ -295,7 +296,7 @@ const louvre = async ({img, outputCanvas, config, callback}) => {
 	pixelData = pixel.data;
 
 
-
+	if(convoluteMatrix)
 	if(config.lightCut || config.darkCut){
 		const scale = 255 / (255 - config.lightCut - config.darkCut);
 		for (let i = 0; i < pixelData.length; i += 4) {
